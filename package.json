@@ -1,0 +1,31 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "mix --production",
+        "lint:css": "stylelint 'resources/css/**/*.css'",
+        "test": "jest"
+    },
+    "devDependencies": {
+        "@tailwindcss/forms": "^0.5.2",
+        "alpinejs": "^3.4.2",
+        "autoprefixer": "^10.4.2",
+        "axios": "^1.6.4",
+        "jest": "^29.7.0",
+        "jest-puppeteer": "^10.0.1",
+        "laravel-mix": "^6.0.6",
+        "postcss": "^8.4.31",
+        "puppeteer": "^22.4.1",
+        "stylelint": "^16.2.1",
+        "stylelint-config-tailwindcss": "^0.0.7",
+        "tailwindcss": "^3.1.0",
+        "ts-loader": "^9.5.1",
+        "typescript": "^5.3.3",
+        "webpack": "^5.90.3",
+        "webpack-cli": "^5.1.4"
+    }
+}

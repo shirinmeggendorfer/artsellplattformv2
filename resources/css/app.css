@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.iconProfile {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/avatar.png') no-repeat center / contain;
+    mask: url('/images/avatar.png') no-repeat center / contain;
+
+}
+
+.iconHome {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/home.png') no-repeat center / contain;
+    mask: url('/images/home.png') no-repeat center / contain;
+
+}
+
+.iconFavourites {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/heart.png') no-repeat center / contain;
+    mask: url('/images/heart.png') no-repeat center / contain;
+
+}
+
+
+.iconAddAd {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/more.png') no-repeat center / contain;
+    mask: url('/images/more.png') no-repeat center / contain;
+
+}
+
+.iconMessage {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    -webkit-mask: url('/images/message.png') no-repeat center / contain;
+    mask: url('/images/message.png') no-repeat center / contain;
+
+}
+
+/* In Ihrer CSS-Datei */
+.article-image {
+    border: 2px solid #ddd; /* Grauer Rahmen */
+    padding: 5px; /* Etwas Abstand innerhalb des Rahmens */
+    width: 100%; /* Bildbreite auf Containerbreite setzen */
+    height: 400px; /* Feste Höhe von 100px */
+    object-fit: cover; /* Bildinhalt zuschneiden, um den festgelegten Bereich zu füllen */
+}
+
+.p-5-important {
+    padding: 1.25rem !important;
+  }
