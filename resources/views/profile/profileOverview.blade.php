@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+      <!-- CURRENTLY NOT USED  -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
@@ -16,7 +17,7 @@
     <div class= mb-5></div>
     <h1 class="text-left text-xl">Willkommen</h1>
     <div class= mb-20></div>
-    <!-- Text über der Suchleiste mit zusätzlichem Abstand zum Slogan -->
+    <!-- Text über der Suchleiste -->
     <div class="mb-5">
         <a href="{{ route('profileEdit') }}" class="inline-block text-lg bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Profileinstellungen
@@ -35,7 +36,7 @@
     <p class="text-lg">Meine Anzeigen (zahl)</p>
 </div>
 
-    <!-- Suchleiste zentriert mit mehr Abstand oben -->
+    <!-- Suchleiste -->
     <div class="w-full flex justify-center">
         <input type="text" placeholder=" Suche..." class="form-control w-full p-5 h-12 text-xl mb-20">
     </div>

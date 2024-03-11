@@ -13,17 +13,17 @@ class Message extends Model
   
     protected $fillable = ['sender_id', 'recipient_id', 'body'];
 
-    /**
-     * Ruft den Sender der Nachricht ab.
-     */
+    
+    // Ruft den Sender der Nachricht ab.
+    
     public function sender()
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    /**
-     * Ruft den Empfänger der Nachricht ab.
-     */
+    
+    // Ruft den Empfänger der Nachricht ab.
+     
     public function recipient()
     {
         return $this->belongsTo(User::class, 'recipient_id');

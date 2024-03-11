@@ -6,7 +6,7 @@
     </x-slot>
 
     @if(auth()->user()->is_admin)
-    <!-- Userverwaltung Button für Admins -->
+    <!-- Userverwaltung Button für Admin -->
     <div class="p-4 sm:p-8 bg-gray-200 dark:bg-gray-800">
         <div class="max-w-xl">
             <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">

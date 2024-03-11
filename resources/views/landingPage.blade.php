@@ -14,12 +14,12 @@
         <h1 class="text-3xl font-bold"> Titel </h1>
     </div>
 
-    <!-- Text über der Suchleiste mit zusätzlichem Abstand zum Slogan -->
+    <!-- Text über der Suchleiste  -->
     <div class="mb-5">
         <p class="text-lg">Slogan Platzhalter</p>
     </div>
 
-    <!-- Suchleiste zentriert mit mehr Abstand oben -->
+    <!-- Suchleiste -->
     <div class="w-full flex justify-center">
         <input type="text" placeholder=" Suche..." class="form-control w-full p-5 h-12 text-xl mb-20">
     </div>

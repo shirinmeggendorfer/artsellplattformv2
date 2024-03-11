@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.main-content {
+    padding-bottom: 100px; /* Passt die Höhe entsprechend der Höhe deiner Navigationsleiste an */
+}
+
+
 .iconProfile {
     display: inline-block;
     width: 24px;
