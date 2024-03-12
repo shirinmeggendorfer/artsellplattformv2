@@ -1,9 +1,18 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Konversation mit {{ $user->name }}
-        </h2>
-    </x-slot>
+<x-slot name="header">
+    <div class="flex items-center space-x-4">
+        <a href="{{ route('items.show', $article->id) }}" class="flex items-center no-underline">
+            <img src="{{ Storage::url($article->photo) }}" alt="{{ $article->title }}" class="w-16 h-16 mr-4">
+         
+            <div>
+                <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                    {{ $article->title }}
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">Verkäufer: {{ $article->user->name }}</p>
+            </div>
+        </a>
+    </div>
+</x-slot>
 
     <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
         @foreach ($messages as $date => $messagesOnDate)
