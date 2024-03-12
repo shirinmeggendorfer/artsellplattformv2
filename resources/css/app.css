@@ -68,6 +68,13 @@
     object-fit: cover; /* Bildinhalt zuschneiden, um den festgelegten Bereich zu füllen */
 }
 
+    .message-image {
+        max-width: 100px; /* Begrenzt die Breite des Bildes */
+        max-height: 100px; /* Begrenzt die Höhe des Bildes */
+        cursor: pointer; /* Zeigt an, dass das Bild klickbar ist */
+    }
+
+
 .p-5-important {
     padding: 1.25rem !important;
   }

@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/messages/create/{recipient}/{articleId}', [MessageController::class, 'create'])->name('messages.create')->middleware('auth');
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
     Route::get('/messages/conversation/{user}/{articleId}', [MessageController::class, 'conversation'])->name('messages.conversation')->middleware('auth');
-    Route::post('/messages/reply/{user}', [MessageController::class, 'reply'])->name('messages.reply')->middleware('auth');
+    Route::post('/messages/reply/{user}/{articleId}', [MessageController::class, 'reply'])->name('messages.reply')->middleware('auth');
 
 });
 
