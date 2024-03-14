@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center space-x-4">
+        <div class="bg-gray-200 flex items-center space-x-4">
             <a href="{{ route('items.show', $article->id) }}" class="flex items-center no-underline">
                 <img src="{{ Storage::url($article->photo) }}" alt="{{ $article->title }}" class="w-16 h-16 mr-4">
                 <div>
@@ -13,6 +13,7 @@
         </div>
     </x-slot>
 
+<div class="mb-8 bg-gray-200" ></div>
     @foreach ($groupedMessages as $date => $messagesOnDate)
 <div class="px-4 py-5 sm:p-6">
     <h4 class="mb-4 font-bold text-gray-500">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>

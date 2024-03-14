@@ -59,6 +59,7 @@
                     <img src="{{ Storage::url($item->photo) }}" alt="{{ $item->title }}" class="w-full h-20 object-cover">
                     <div class="p-2">
                         <h5 class="font-bold text-center">{{ $item->title }}</h5>
+                        <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary">Bearbeiten</a>
                     </div>
                 </div>
             @endforeach

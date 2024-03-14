@@ -24,6 +24,9 @@ Route::get('/', [HomeController::class, 'startPage'])->name('startPage');
 Route::get('/items/create', [ArticleController::class, 'createItem'])->name('items.createItem');
 Route::get('/items/{item}', [ArticleController::class, 'show'])->name('items.show');
 Route::post('/items', [ArticleController::class, 'store'])->name('items.storeItem');
+Route::put('/items/{item}', [ArticleController::class, 'update'])->name('items.update')->middleware('auth');
+Route::get('/items/{item}/edit', [ArticleController::class, 'edit'])->name('items.edit')->middleware('auth');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -56,13 +59,13 @@ Route::get('/check-new-messages', [MessageController::class, 'checkForNewMessage
 
 
 
-// Gruppieren Sie Admin-Routen mit Middleware
+
 Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     
-    // Routen für die Artikelverwaltung im Admin-Bereich
+    
     Route::get('/admin/articles', [AdminController::class, 'listArticles'])->name('admin.articles.index');
     Route::get('/admin/articles/{item}/edit', [AdminController::class, 'editArticle'])->name('admin.articles.edit');
     Route::delete('/admin/articles/{item}', [AdminController::class, 'destroyArticle'])->name('admin.articles.destroy');

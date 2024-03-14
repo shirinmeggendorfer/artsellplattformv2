@@ -6,20 +6,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item; 
+use Intervention\Image\Facades\Image;
+
 class ArticleController extends Controller
 {
-    
-        public function createItem()
-        {
-            return view('items.createItem');
-        }
-    
-    
+    public function createItem()
+    {
+        return view('items.createItem');
+    }
+
     public function show(Item $item)
-{
-    // Stellen Sie sicher, dass das Item-Model eine Beziehung zum User-Model hat
-    return view('items.show', compact('item'));
-}
+    {
+        return view('items.show', compact('item'));
+    }
 
     public function store(Request $request)
     {
@@ -30,32 +29,59 @@ class ArticleController extends Controller
             'photo' => 'required|image',
         ]);
 
-        $path = $request->file('photo')->store('public/photos');
+        if ($request->hasFile('photo')) {
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $filenameToStore = $filename.'_'.time().'.'.$extension;
+            $path = $request->file('photo')->storeAs('public/photos', $filenameToStore);
+        } else {
+            $filenameToStore = 'noimage.jpg';
+        }
 
-        $article = new Item();
-        $article->title = $validated['title'];
-        $article->description = $validated['description'];
-        $article->price = $validated['price'];
-        $article->photo = $path;
-        $article->user_id = auth()->id(); // Stellen Sie sicher, dass Artikel Benutzern zugeordnet sind
-        $article->save();
+        $item = new Item();
+        $item->title = $validated['title'];
+        $item->description = $validated['description'];
+        $item->price = $validated['price'];
+        $item->photo = $filenameToStore;
+        $item->user_id = auth()->id();
+        $item->save();
 
         return redirect()->route('startPage')->with('success', 'Artikel erfolgreich erstellt.');
     }
 
     public function index(Request $request)
-{
-    if ($request->has('search') && $request->search != '') {
-        $items = Item::where('title', 'like', '%' . $request->search . '%')
-            ->latest()
-            ->limit(20)
-            ->get();
-    } else {
-        $items = Item::latest()->limit(20)->get();
+    {
+        if ($request->has('search') && $request->search != '') {
+            $items = Item::where('title', 'like', '%' . $request->search . '%')->latest()->limit(20)->get();
+        } else {
+            $items = Item::latest()->limit(20)->get();
+        }
+
+        return view('startPage', compact('items'));
     }
 
-    return view('startPage', compact('items'));
-}
+    public function updateArticle(Request $request, Item $item)
+    {
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+        ]);
 
+        $item->update($request->all());
 
+        return redirect()->route('items.show', $item->id)->with('success', 'Artikel erfolgreich aktualisiert.');
+    }
+
+    public function destroyArticle(Item $item)
+    {
+        $item->delete();
+        return redirect()->route('startPage')->with('success', 'Artikel erfolgreich gelöscht.');
+    }
+
+    public function edit(Item $item)
+    {
+        
+        return view('items.edit', compact('item'));
+    }
 }
