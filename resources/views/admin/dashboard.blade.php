@@ -1,53 +1,53 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            Admin-Dashboard
-        </h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Admin-Dashboard</h2>
     </x-slot>
 
     <div class="py-4 bg-gray-200 min-h-screen">
         <div class="max-w-md mx-auto px-4">
-            <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                <div class="px-4 py-5 sm:px-6">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Benutzerverwaltung
-                    </h3>
+            <div class="bg-gray-200 ">
+                <div class="px-4  sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Benutzerverwaltung</h3>
                 </div>
+
+   <!-- Suchformular -->
+   <form action="{{ route('admin.searchUser') }}" method="GET" class="flex justify-center pt-5 px-">
+                        <input type="text" name="search" placeholder="Benutzer suchen..." class="form-control w-full px-5 h-12 text-xl">
+                        <button type="submit" class="ml-2 px-5">Suchen</button>
+                    </form>
+                    <div class= "mb-6"> </div>
+                </div>
+
+
                 <div class="border-t border-gray-200">
-                    <dl>
-                        @foreach($users as $user)
-                        <div class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                Name
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $user->name }}
-                            </dd>
-                        </div>
-                        <div class="bg-gray-200 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                            <dt class="text-sm font-medium text-gray-500">
-                                Email
-                            </dt>
-                            <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                {{ $user->email }}
-                            </dd>
-                        </div>
-                        <div class="bg-gray-200 px-4 py-5 sm:flex sm:flex-row-reverse sm:px-6">
-                            <a href="{{ route('users.edit', $user) }}" class="w-full sm:w-auto inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-white hover:bg-gray-800 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm">
-                                Bearbeiten
-                            </a>
-                            <form action="{{ route('users.destroy', $user) }}" method="POST" class="mt-3 sm:mt-0 sm:ml-3">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="w-full sm:w-auto inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none sm:w-auto sm:text-sm">
-                                    Löschen
-                                </button>
-                            </form>
-                        </div>
-                        @endforeach
-                    </dl>
+                    @foreach($users as $user)
+
+                    <div x-data="{ open: false }">
+            <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 text-left text-lg font-semibold text-gray-800 bg-gray-200 hover:bg-gray-300 rounded-md">
+                <span>  {{ $user->name }}</span>
+                <svg x-show="!open" class="iconNext h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+                <svg x-show="open" class="iconDown h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                </svg>
+            
+            </button>
+            <div x-show="open" x-transition class="p-4 mt-2 bg-gray-200 dark:bg-gray-800 rounded-lg">
+            @include('admin.partials.editUserForm', ['user' => $user])
+            @include('admin.partials.editUserArticles', ['user' => $user])
+                
+            </div>
+
+
+                    </div>
+            
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
+    <script src="//unpkg.com/alpinejs" defer></script>
+       <!-- Fixed Navigationsleiste -->
+       <x-navbar />
 </x-app-layout>

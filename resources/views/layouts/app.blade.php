@@ -13,7 +13,10 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    <script src="{{ asset('js/checkMessages.js') }}" defer></script>
+    <script src="{{ asset('js/checkMessages.js') }}" defer>
+         src="//unpkg.com/alpinejs" defer>
+
+    </script>
 </head>
 <body class="bg-gray-200 dark:bg-gray-800 font-sans antialiased">
   

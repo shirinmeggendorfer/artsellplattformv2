@@ -56,7 +56,22 @@ Route::get('/check-new-messages', [MessageController::class, 'checkForNewMessage
 
 
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware(['auth', 'is_admin']);
+// Gruppieren Sie Admin-Routen mit Middleware
+Route::middleware(['auth', 'is_admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
+    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    
+    // Routen für die Artikelverwaltung im Admin-Bereich
+    Route::get('/admin/articles', [AdminController::class, 'listArticles'])->name('admin.articles.index');
+    Route::get('/admin/articles/{item}/edit', [AdminController::class, 'editArticle'])->name('admin.articles.edit');
+    Route::delete('/admin/articles/{item}', [AdminController::class, 'destroyArticle'])->name('admin.articles.destroy');
+    Route::put('/admin/articles/{item}', [AdminController::class, 'updateArticle'])->name('admin.articles.update');
+    Route::get('/admin/search', [AdminController::class, 'searchUser'])->name('admin.searchUser')->middleware('auth', 'is_admin');
+    
+});
+
+
 
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+
+    <div class="py-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <!-- Profileinstellungen mit Accordion -->
         <div x-data="{ open: false }">
@@ -28,7 +29,25 @@
     </div>
 </div>
 
-<script src="//unpkg.com/alpinejs" defer></script>
+@if(auth()->user()->is_admin)
+                <div x-data="{ open: false }">
+                    <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 text-left text-lg font-semibold text-gray-800 bg-gray-200 hover:bg-gray-300 rounded-md">
+                        <span>Benutzerverwaltung</span>
+                        <svg x-show="!open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                        <svg x-show="open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+
+                    <div x-show="open" x-transition class="p-4 mt-2 bg-gray-200 dark:bg-gray-800 rounded-lg">
+                        <a href="{{ route('admin.dashboard') }}" class="px-4 py-2 text-lg font-semibold text-gray-800 bg-gray-100 hover:bg-gray-200 rounded-md">
+                            Zum Dashboard
+                        </a>
+                    </div>
+                </div>
+            @endif
 
 <!-- Eigene Anzeigen -->
 <div class="p-4 bg-gray-200">
