@@ -49,6 +49,42 @@
 
 }
 
+.iconNewMessage {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: rgb(229, 143, 143);
+    -webkit-mask: url('/images/new-message.png') no-repeat center / contain;
+    mask: url('/images/new-message.png') no-repeat center / contain;
+
+}
+
+.conversation-unread {
+    background-color: #f0f4f8; /* Helles Blau als Beispiel */
+    border-left: 4px solid #3490dc; /* Dunkelblau als Markierung */
+  }
+
+
+.iconDown {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/down.png') no-repeat center / contain;
+    mask: url('/images/down.png') no-repeat center / contain;
+
+}
+
+.iconNext {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/next.png') no-repeat center / contain;
+    mask: url('/images/next.png') no-repeat center / contain;
+
+}
+
 .iconMessage {
     display: inline-block;
     width: 30px;
@@ -59,7 +95,8 @@
 
 }
 
-/* In Ihrer CSS-Datei */
+
+
 .article-image {
     border: 2px solid #ddd; /* Grauer Rahmen */
     padding: 5px; /* Etwas Abstand innerhalb des Rahmens */

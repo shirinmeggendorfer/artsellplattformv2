@@ -50,6 +50,11 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+Route::get('/messages/{message}/read', [MessageController::class, 'markAsRead'])->name('messages.read');
+Route::get('/conversation/{conversationId}/read', [MessageController::class, 'markConversationAsRead'])->name('conversation.read');
+Route::get('/check-new-messages', [MessageController::class, 'checkForNewMessages'])->name('messages.checkNew');
+
+
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard')->middleware(['auth', 'is_admin']);
 

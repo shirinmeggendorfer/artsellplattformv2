@@ -8,15 +8,12 @@
     </x-slot>
 
     <div class="text-left mb-2 w-full px-5">
-        <h3 class="text-lg font-semibold">Message</h3>
+        <h3 class="text-lg font-semibold">Neue Nachricht</h3>
         {{-- Nachrichtenformular --}}
         <form action="{{ route('messages.store') }}" method="POST">
-            @csrf
-            {{-- Empfänger-ID (könnte versteckt sein, wenn die Route bereits den Empfänger spezifiziert) --}}
+            @csrf  
             <input type="hidden" name="recipient_id" value="{{ $recipient->id }}">
-
-            {{-- Hier fügst du das versteckte Feld für die article_id ein --}}
-            <input type="hidden" name="article_id" value="{{ $articleId }}"> {{-- Stelle sicher, dass du die Variable $articleId korrekt übergibst --}}
+            <input type="hidden" name="article_id" value="{{ $articleId }}"> 
 
             {{-- Nachrichtentext --}}
             <div class="form-group">

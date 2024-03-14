@@ -28,7 +28,10 @@ class Item extends Model
 {
     return $this->hasMany(Message::class, 'article_id');
 }
-
+public function items()
+{
+    return $this->hasMany(Item::class);
+}
 
 
 

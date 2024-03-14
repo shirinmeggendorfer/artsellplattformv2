@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startpage</title>
+    <title>Startseite</title>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 
@@ -18,7 +18,7 @@
 </div>
 <div class="pt-16">
 <div class= mb-20></div>
-    <h2 class="text-2xl font-bold text-left mt-4 mb-6 px-5">Last Uploads</h2>
+    <h2 class="text-2xl font-bold text-left mt-4 mb-6 px-5">zuletzt hochgeladen</h2>
             @foreach($items as $item)
                 <a href="{{ route('items.show', $item) }}" class="px-5 w-full block text-black no-underline">
                     <img class="article-image" src="{{ Storage::url($item->photo) }}" alt="Artikel Foto">
@@ -39,6 +39,8 @@
 </div>
 
 
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/app.js') }}"
+ src="{{ asset('js/checkMessages.js') }}"
+></script>
 </body>
 </html>

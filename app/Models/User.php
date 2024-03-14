@@ -53,4 +53,15 @@ public function receivedMessages()
 {
     return $this->hasMany(Message::class, 'recipient_id');
 }
+
+public function items()
+{
+    return $this->hasMany(\App\Models\Item::class, 'user_id');
+}
+
+public function hasNewMessages()
+{
+    return $this->receivedMessages()->where('is_read', false)->exists();
+}
+
 }

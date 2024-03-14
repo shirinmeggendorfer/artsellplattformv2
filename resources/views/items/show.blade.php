@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-            Einzelansicht
+            Produktansicht
         </h2>
     </x-slot>
 
@@ -46,7 +46,6 @@
 
         <div class="mt-5 flex justify-end px-5">
             @if(auth()->check())
-                {{-- Beachte die geänderte URL, die jetzt die Artikel-ID als zusätzlichen Parameter übergibt --}}
                 <a href="{{ route('messages.create', ['recipient' => $item->user->id, 'articleId' => $item->id]) }}" class="bg-gray-800 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded no-underline">
                     Anschreiben
                 </a>

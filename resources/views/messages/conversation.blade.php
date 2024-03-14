@@ -13,27 +13,29 @@
         </div>
     </x-slot>
 
-    <div class="max-w-3xl mx-auto sm:px-6 lg:px-8" id="messagesContainer" style="margin-bottom: 100px; overflow-y: auto; height: calc(100vh - 200px);">
-        @foreach ($messages as $date => $messagesOnDate)
-            <div class="px-4 py-5 sm:p-6">
-                <h4 class="mb-4 font-bold text-gray-500">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
-                @foreach ($messagesOnDate as $message)
-                  <!-- Nachricht mit Bild -->
-<div class="mb-2">
-    <p class="text-sm text-gray-900">
-        <strong>{{ $message->sender_id == auth()->id() ? 'Du' : $user->name }}:</strong>
-        {{ $message->body }}
-    </p>
-    @if($message->image_path)
-        <!-- Kleinere Bildvorschau im Chat -->
-        <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
-    @endif
-</div>
-
-                @endforeach
+    @foreach ($groupedMessages as $date => $messagesOnDate)
+<div class="px-4 py-5 sm:p-6">
+    <h4 class="mb-4 font-bold text-gray-500">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
+    @foreach ($messagesOnDate as $message)
+        <div class="mb-2 flex justify-between">
+            <p class="text-sm text-gray-900 flex-grow">
+                <strong>{{ $message->sender_id == auth()->id() ? 'Du' : $user->name }}:</strong>
+                {{ $message->body }}
+            </p>
+            <span class="text-sm text-gray-500">{{ $message->created_at->format('H:i') }}</span>
+        </div>
+        @if($message->image_path)
+            <div class="text-right">
+                <!-- Kleinere Bildvorschau im Chat -->
+                <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
             </div>
-        @endforeach
+        @endif
+    @endforeach
+</div>
+@endforeach
+
     </div>
+    <div class="mb-80"></div>
 
     <!-- Antwort-Formular, jetzt am unteren Rand fixiert -->
     <div style="position: fixed; bottom: 55px; width: 100%; max-width: 768px; background: #f3f4f6; padding: 10px; box-shadow: 0 -2px 10px rgba(0,0,0,0.1);">
@@ -48,10 +50,25 @@
 
     <script>
         // Automatisches Scrollen zum unteren Teil des Nachrichtenbereichs
-        window.onload = function() {
+        document.addEventListener("DOMContentLoaded", function() {
+        // Definiert, wie oft gescrollt werden soll
+        const numberOfScrolls = 5;
+        let currentScroll = 0;
+
+        // Funktion, die das Scrollen durchführt
+        function scrollDown() {
             const messagesContainer = document.getElementById('messagesContainer');
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        };
+            if (messagesContainer && currentScroll < numberOfScrolls) {
+                messagesContainer.scrollTop = messagesContainer.scrollHeight+1000;
+                currentScroll++;
+                setTimeout(scrollDown, 100); // Wiederholt nach einer kurzen Verzögerung
+     
+            }
+        }
+
+        // Startet das Scrollen beim Laden der Seite
+        scrollDown();
+    });
 
         function showImage(src) {
     // Erstellen eines neuen Bild-Elements
@@ -73,7 +90,7 @@
     document.body.appendChild(img);
 }
     </script>
-<div class="mb-80"></div>
+<div class="mb-60"></div>
 
     <x-navbar />
 </x-app-layout>

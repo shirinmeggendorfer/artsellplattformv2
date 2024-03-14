@@ -11,15 +11,16 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    public function edit(Request $request): View
+    
+
+    public function edit()
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $user = auth()->user();
+        $items = $user->items()->get(); // Items des Benutzers laden
+    
+        return view('profile.edit', compact('user', 'items'));
     }
+
 
     /**
      * Update the user's profile information.
@@ -36,6 +37,7 @@ class ProfileController extends Controller
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+
 
     /**
      * Delete the user's account.

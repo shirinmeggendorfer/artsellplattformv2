@@ -572,10 +572,13 @@ video {
   margin-bottom: 15rem;
 }
 .mb-80 {
-  margin-bottom: 17rem;
+  margin-bottom: 20rem;
 }
 .ml-2 {
   margin-left: 0.5rem;
+}
+.ml-4 {
+  margin-left: 1rem;
 }
 .mr-4 {
   margin-right: 1rem;
@@ -613,14 +616,14 @@ video {
 .block {
   display: block;
 }
-.inline-block {
-  display: inline-block;
-}
 .flex {
   display: flex;
 }
 .inline-flex {
   display: inline-flex;
+}
+.grid {
+  display: grid;
 }
 .hidden {
   display: none;
@@ -633,6 +636,9 @@ video {
 }
 .h-16 {
   height: 4rem;
+}
+.h-20 {
+  height: 5rem;
 }
 .h-4 {
   height: 1rem;
@@ -679,17 +685,11 @@ video {
 .max-w-2xl {
   max-width: 42rem;
 }
-.max-w-3xl {
-  max-width: 48rem;
-}
 .max-w-4xl {
   max-width: 56rem;
 }
 .max-w-7xl {
   max-width: 80rem;
-}
-.max-w-full {
-  max-width: 100%;
 }
 .max-w-md {
   max-width: 28rem;
@@ -699,6 +699,9 @@ video {
 }
 .flex-1 {
   flex: 1 1 0%;
+}
+.flex-grow {
+  flex-grow: 1;
 }
 .origin-top {
   transform-origin: top;
@@ -723,6 +726,9 @@ video {
 }
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 .flex-col {
   flex-direction: column;
@@ -837,10 +843,6 @@ video {
 .border-transparent {
   border-color: transparent;
 }
-.bg-blue-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
-}
 .bg-gray-200 {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
@@ -861,15 +863,16 @@ video {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
-.bg-transparent {
-  background-color: transparent;
-}
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 .fill-current {
   fill: currentColor;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-2 {
   padding: 0.5rem;
@@ -962,6 +965,9 @@ video {
 }
 .text-center {
   text-align: center;
+}
+.text-right {
+  text-align: right;
 }
 .text-start {
   text-align: start;
@@ -1198,6 +1204,37 @@ video {
     mask: url('/images/more.png') no-repeat center / contain;
 
 }
+.iconNewMessage {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: rgb(229, 143, 143);
+    -webkit-mask: url('/images/new-message.png') no-repeat center / contain;
+    mask: url('/images/new-message.png') no-repeat center / contain;
+
+}
+.conversation-unread {
+    background-color: #f0f4f8; /* Helles Blau als Beispiel */
+    border-left: 4px solid #3490dc; /* Dunkelblau als Markierung */
+  }
+.iconDown {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/down.png') no-repeat center / contain;
+    mask: url('/images/down.png') no-repeat center / contain;
+
+}
+.iconNext {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    -webkit-mask: url('/images/next.png') no-repeat center / contain;
+    mask: url('/images/next.png') no-repeat center / contain;
+
+}
 .iconMessage {
     display: inline-block;
     width: 30px;
@@ -1207,7 +1244,6 @@ video {
     mask: url('/images/message.png') no-repeat center / contain;
 
 }
-/* In Ihrer CSS-Datei */
 .article-image {
     border: 2px solid #ddd; /* Grauer Rahmen */
     padding: 5px; /* Etwas Abstand innerhalb des Rahmens */
@@ -1216,6 +1252,11 @@ video {
     -o-object-fit: cover;
        object-fit: cover; /* Bildinhalt zuschneiden, um den festgelegten Bereich zu füllen */
 }
+.message-image {
+        max-width: 100px; /* Begrenzt die Breite des Bildes */
+        max-height: 100px; /* Begrenzt die Höhe des Bildes */
+        cursor: pointer; /* Zeigt an, dass das Bild klickbar ist */
+    }
 .p-5-important {
     padding: 1.25rem !important;
   }
@@ -1255,13 +1296,13 @@ video {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
-.hover\:bg-blue-700:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
-}
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
+}
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
 }
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
@@ -1302,9 +1343,6 @@ video {
 .hover\:text-indigo-500:hover {
   --tw-text-opacity: 1;
   color: rgb(99 102 241 / var(--tw-text-opacity));
-}
-.hover\:underline:hover {
-  text-decoration-line: underline;
 }
 .hover\:file\:bg-violet-100::file-selector-button:hover {
   --tw-bg-opacity: 1;
@@ -1533,7 +1571,17 @@ video {
     line-height: 1.25rem;
   }
 }
+@media (min-width: 768px) {
+
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
 @media (min-width: 1024px) {
+
+  .lg\:grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
 
   .lg\:px-8 {
     padding-left: 2rem;

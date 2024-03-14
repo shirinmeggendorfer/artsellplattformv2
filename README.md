@@ -66,6 +66,59 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+Setup:
+    Vorraussetzung: 
+        - PHP
+        - Composer
+        - Laravel
+        - mySQL
+
+    Anleitung: 
+        Mac
+        1. Installieren von Homebrew
+                Homebrew ist ein Paketmanager für macOS, der die Installation         von Software erleichtert. Öffnen Sie das Terminal und führen Sie folgenden Befehl aus, um Homebrew zu installieren:
+                /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        
+        2. Installieren von PHP
+                Laravel benötigt PHP. Sie können PHP mit Homebrew installieren:
+                    brew install php
+       
+        3. Installieren von Composer
+                Composer ist ein Abhängigkeitsmanager für PHP. Installieren Sie Composer mit dem folgenden Befehl:
+                    brew install composer
+       
+        4. Installieren von MySQL
+                Installieren Sie MySQL mit Homebrew:
+                     brew install mysql
+        
+        5. Starten Sie den MySQL-Server:
+                    brew services start mysql
+        
+        6. Erstellen eines neuen Laravel-Projekts
+                Erstellen Sie ein neues Laravel-Projekt mit Composer:
+                    composer create-project --prefer-dist laravel/laravel meinProjekt
+    
+    
+    
+    Windows
+        1. Installieren von XAMPP
+             XAMPP ist eine PHP-Entwicklungsumgebung, die Apache, MariaDB (eine MySQL-Datenbank), PHP und Perl umfasst. Laden Sie XAMPP von der offiziellen Website herunter und folgen Sie den Installationsanweisungen.
+
+        2. Installieren von Composer
+            Laden Sie den Composer-Installer von der offiziellen Website herunter und führen Sie ihn aus.
+        Folgen Sie den Anweisungen des Installers. Stellen Sie sicher, dass Sie den Pfad zur php.exe in Ihrer XAMPP-Installation angeben, wenn danach gefragt wird.
+        
+        3. Erstellen eines neuen Laravel-Projekts
+            Öffnen Sie die Eingabeaufforderung oder PowerShell und führen Sie den folgenden Befehl aus, um ein neues Laravel-Projekt zu erstellen:
+                composer create-project --prefer-dist laravel/laravel meinProjekt
+       
+        4. Starten von MySQL
+             Starten Sie den XAMPP-Control-Panel und starten Sie den MySQL-Dienst.
+        Sie können phpMyAdmin in Ihrem Browser öffnen, indem Sie zu http://localhost/phpmyadmin navigieren, um Ihre Datenbanken zu verwalten.
+
+
+
+User zum testen:
 
 Testuser:
 name: TestUser
