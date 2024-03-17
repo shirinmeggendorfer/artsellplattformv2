@@ -61,7 +61,7 @@ class ArticleController extends Controller
         return view('startPage', compact('items'));
     }
 
-    public function updateArticle(Request $request, Item $item)
+    public function update(Request $request, Item $item)
     {
         $request->validate([
             'title' => 'required|max:255',
@@ -73,7 +73,7 @@ class ArticleController extends Controller
         return redirect()->route('items.show', $item->id)->with('success', 'Artikel erfolgreich aktualisiert.');
     }
 
-    public function destroyArticle(Item $item)
+    public function destroy(Item $item)
     {
         $item->delete();
         return redirect()->route('startPage')->with('success', 'Artikel erfolgreich gelöscht.');

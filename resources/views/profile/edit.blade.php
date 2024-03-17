@@ -81,6 +81,7 @@
                     </form>
                 </div>
             </div>
+            <div class="mb-8">
 
             <!-- Navigationsleiste -->
             <x-navbar />
