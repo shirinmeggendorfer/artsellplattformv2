@@ -16,7 +16,12 @@
     </form>
     <div class= mb-2></div>
 </div>
+ <!--Logo -->
 <div class="pt-16">
+<div class="flex justify-between items-center px-5 py-5">
+        <div class="websiteLogo"></div>
+        <span class="text-3xl font-bold">AppName</span>
+    </div>
 <div class= mb-20></div>
     <h2 class="text-2xl font-bold text-left mt-4 mb-6 px-5">zuletzt hochgeladen</h2>
             @foreach($items as $item)

@@ -8,6 +8,14 @@
 }
 
 
+.websiteLogo {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    background: url('/images/starry-night-2.png') no-repeat center / contain;
+}
+
+
 .iconProfile {
     display: inline-block;
     width: 24px;
