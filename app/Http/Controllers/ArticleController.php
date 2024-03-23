@@ -50,6 +50,9 @@ class ArticleController extends Controller
         return redirect()->route('startPage')->with('success', 'Artikel erfolgreich erstellt.');
     }
 
+    
+    
+
     public function index(Request $request)
     {
         if ($request->has('search') && $request->search != '') {

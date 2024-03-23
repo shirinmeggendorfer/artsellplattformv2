@@ -142,6 +142,7 @@ class RegisteredUserController extends Controller
                     'chello.nl',
                     'live.ca',
                     'aim.com',
+                    'beispiel.de',
                     'bigpond.net.au']; // Erlaubte Domains hier einfügen
                     $domain = substr(strrchr($value, "@"), 1);
                     if (!in_array($domain, $allowedDomains)) {

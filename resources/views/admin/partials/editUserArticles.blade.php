@@ -13,11 +13,11 @@
                 <div class="text-center mb-2">{{ $item->title }}</div>
                 <!-- Bearbeiten und Löschen Optionen unten -->
                 <div class="flex gap-2">
-                    <a href="{{ route('admin.articles.edit', $item->id) }}" class="text-indigo-600 hover:text-indigo-900">Bearbeiten</a>
+                    <a href="{{ route('admin.articles.edit', $item->id) }}" class="'inline-flex items-center px-4 py-2 border border-transparent light-color rounded-md content-text-small tracking-widest hover:accent-color active:main-color-light-mode dark:main-color-dark-mode focus:outline-none disabled:opacity-25 transition ease-in-out duration-150 br-buttons">Bearbeiten</a>
                     <form action="{{ route('admin.articles.destroy', $item->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="text-red-600 hover:text-red-900">Löschen</button>
+                        <x-button type="submit" class=" hover:accent-color">Löschen</x-button>
                     </form>
                 </div>
             </div>

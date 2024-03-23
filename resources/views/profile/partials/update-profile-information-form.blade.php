@@ -1,10 +1,10 @@
 <section>
     <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+        <h2 class="h2-text">
             {{ __('Profil Informationen') }}
         </h2>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <p class="mt-1 content-text">
             {{ __("Aktualisieren Sie die Profilinformationen und die E-Mail-Adresse Ihres Kontos.") }}
         </p>
     </header>
@@ -20,7 +20,7 @@
         <div>
             <x-input-label for="name" :value="__('Name')" />
             <div class= "mb-2"> </div>
-            <x-text-input id="name" name="name" type="text" class="block w-full p-5 h-10 text-l mb-5" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-text-input id="name" name="name" type="text" class="block w-full p-5 h-10 content-text mb-5" :value="old('name', $user->name)" required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
 
@@ -42,9 +42,9 @@
                     <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
                         {{ __('Ihre E-Mail Adresse ist nicht verifiziert.') }}
 
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
+                        <x-button form="send-verification" >
                             {{ __('Klicken Sie hier, um die Bestätigungs-E-Mail erneut zu senden.') }}
-                        </button>
+                        </x-button>
                     </p>
 
                     @if (session('status') === 'verification-link-sent')
@@ -57,7 +57,7 @@
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Speichern') }}</x-primary-button>
+            <x-button>{{ __('Speichern') }}</x-button>
 
             @if (session('status') === 'profile-updated')
                 <p
@@ -70,5 +70,6 @@
             @endif
         </div>
     </form>
+    <div class="mb-10">
 </section>
 <div class="mb-8">

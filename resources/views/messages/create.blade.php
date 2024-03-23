@@ -2,13 +2,13 @@
 
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+        <h2 class="h2-text leading-tight">
             {{ __('Write Message') }}
         </h2>
     </x-slot>
 
     <div class="text-left mb-2 w-full px-5">
-        <h3 class="text-lg font-semibold">Neue Nachricht</h3>
+        <h3 class="text-lg h2-text">Neue Nachricht</h3>
         {{-- Nachrichtenformular --}}
         <form action="{{ route('messages.store') }}" method="POST">
             @csrf  
@@ -17,14 +17,14 @@
 
             {{-- Nachrichtentext --}}
             <div class="form-group">
-                <textarea name="message" id="message" class="form-control w-full p-4" rows="4" required></textarea>
+                <textarea name="message" id="message" class="form-control content-text w-full p-4" rows="4" required></textarea>
             </div>
 
             {{-- Senden-Button --}}
             <div class="flex justify-end mt-4">
-                <x-primary-button type="submit" class="px-5">
+                <x-button type="submit" class="px-5">
                     Senden
-                </x-primary-button>
+                </x-button>
             </div>
         </form>
     </div>

@@ -62,7 +62,7 @@ class AdminController extends Controller
     }
     public function destroyArticle(Item $item)
     {
-        $article->delete();
+        $item->delete();
         return redirect()->route('admin.dashboard')->with('success', 'Artikel erfolgreich gelöscht.');
     }
     

@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="flex items-center justify-end mt-4">
-                        <x-primary-button>{{ __('Speichern') }}</x-primary-button>
+                        <x-button>{{ __('Speichern') }}</x-button>
                         </div>
                     </form>
                 </div>

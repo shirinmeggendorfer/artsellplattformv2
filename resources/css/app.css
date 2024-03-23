@@ -3,6 +3,184 @@
 @tailwind utilities;
 
 
+@font-face {
+    font-family: 'Roboto';
+    src: url('/fonts/RobotoMono-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'Sans-bold';
+    src: url('/fonts/Sans BOLD.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  .file\:bg-light-color::file-selector-button {
+    --tw-bg-opacity: 1;
+    background-color: #F5B9B9 ;
+  }
+
+  .file\:br-buttons::file-selector-button {
+    border-radius: 0px 100px 100px 0px; 
+  }
+
+  .file\:text-button::file-selector-button {
+    --tw-text-opacity: 1;
+    color: #121212;
+  }
+
+  .hover\:file\:accent-hover::file-selector-button:hover {
+    --tw-bg-opacity: 1;
+    background-color: #FEE14E;
+  }
+
+  .content-text {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-family: 'Roboto';
+    color: var(--text-color);
+}
+
+.content-text-small {
+  font-size: 0.9rem;
+  line-height: 1rem;
+  font-family: 'Roboto';
+  color: var(--text-color);
+}
+
+.h1-text {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-family: 'Sans-bold';
+    color: var(--text-color);
+  }
+
+  .h2-text {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-family: 'Sans-bold';
+    color: var(--text-color);
+  }
+
+  .h3-text {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    font-family: 'Sans-bold';
+    color: var(--text-color);
+  }
+
+ 
+
+
+
+    /* Akzentfarbe */
+.accent-color {
+    background-color:#FEE14E;
+  }
+
+  /* Trennlinie mit Akzentfarbe */
+.divide-accent-color > :not([hidden]) ~ :not([hidden]) {
+  border-color: #FEE14E; /* Farbe der Trennlinie setzen */
+}
+
+  /* Trennlinie mit heller Farbe */
+  .divide-light-color > :not([hidden]) ~ :not([hidden]) {
+    border-color: #F5B9B9; /* Farbe der Trennlinie setzen */
+  }
+
+  .text-accent-color {
+    color:#FEE14E;
+  }
+
+
+      /* dunkele Farbe */
+.dark-color {
+    background-color:#121212;
+  }
+
+  .text-dark-color {
+    color:#121212;
+  }
+
+  .dark\:text-gray-800 {
+    --tw-text-opacity: 1;
+    color: rgb(31 41 55 / var(--tw-text-opacity));
+  }
+
+      /* helle Farbe */
+.light-color {
+    background-color: #F5B9B9;
+  }
+
+  .text-light-color {
+    color: #F5B9B9;
+  }
+
+
+
+   /* Basisfarbe Lightmode */
+   .light\:base-color-light {
+    --tw-bg-opacity: 1;
+    background-color: #FEDCDB; 
+}
+
+.light\:text-base-color-light {
+    --tw-text-opacity: 1;
+    color: #121212; 
+}
+
+
+          /* Basisfarbe Darkmode */
+          .dark\:base-color-dark {
+            --tw-bg-opacity: 1;
+            background-color: #121212; /* Hintergrundfarbe im Dunkelmodus */
+        }
+
+        .dark\:text-base-color-dark {
+            --tw-text-opacity: 1;
+            color: #FEDCDB; /* Textfarbe im Dunkelmodus */
+        }
+        
+
+
+          /* Basisfarbe light für navBar */
+          .light\:base-color-dark {
+            --tw-bg-opacity: 1;
+            background-color: #121212; /* Hintergrundfarbe im Dunkelmodus */
+        }
+ 
+
+
+  /* Light-Modus */
+.main-color-light-mode:hover {
+    background-color: #FEE14E; /* Akzentfarbe */
+    
+}
+
+/* Dark-Modus */
+.main-color-dark-mode:hover {
+    background-color: #FEE14E; /* Akzentfarbe */
+    
+}
+
+  .br-cards {
+    border-radius: 10px;
+  }
+
+  .br-messages {
+    border-radius: 50px 10px; 
+  }
+
+  .br-buttons{
+    border-radius: 0px 100px 100px 0px; 
+  }
+
+  .br-profile-picture{
+    border-radius: 50%; 
+  }
+
 .main-content {
     padding-bottom: 100px; /* Passt die Höhe entsprechend der Höhe deiner Navigationsleiste an */
 }
@@ -20,7 +198,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/avatar.png') no-repeat center / contain;
     mask: url('/images/avatar.png') no-repeat center / contain;
 
@@ -30,7 +208,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/home.png') no-repeat center / contain;
     mask: url('/images/home.png') no-repeat center / contain;
 
@@ -40,7 +218,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/heart.png') no-repeat center / contain;
     mask: url('/images/heart.png') no-repeat center / contain;
 
@@ -51,7 +229,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/more.png') no-repeat center / contain;
     mask: url('/images/more.png') no-repeat center / contain;
 
@@ -61,7 +239,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: rgb(229, 143, 143);
+    background-color:#F5B9B9;
     -webkit-mask: url('/images/new-message.png') no-repeat center / contain;
     mask: url('/images/new-message.png') no-repeat center / contain;
 
@@ -77,7 +255,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/down.png') no-repeat center / contain;
     mask: url('/images/down.png') no-repeat center / contain;
 
@@ -87,7 +265,7 @@
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/next.png') no-repeat center / contain;
     mask: url('/images/next.png') no-repeat center / contain;
 
@@ -97,7 +275,7 @@
     display: inline-block;
     width: 30px;
     height: 30px;
-    background-color: white;
+    background-color: #FEE14E;
     -webkit-mask: url('/images/message.png') no-repeat center / contain;
     mask: url('/images/message.png') no-repeat center / contain;
 

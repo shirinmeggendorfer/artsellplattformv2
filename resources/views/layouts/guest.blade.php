@@ -14,10 +14,10 @@
         <!-- Scripts -->
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     </head>
-    <body class="bg-gray-200 flex flex-col h-screen">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-200 dark:bg-gray-900">
+    <body class="light:base-color-light flex flex-col h-screen">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 base-color-light">
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-gray-200 dark:bg-gray-800 ">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-4 light:base-color-light">
                 {{ $slot }}
             </div>
         </div>
