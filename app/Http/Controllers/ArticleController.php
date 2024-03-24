@@ -7,6 +7,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item; 
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+
 
 
 class ArticleController extends Controller
@@ -68,25 +70,43 @@ class ArticleController extends Controller
 
     public function update(Request $request, Item $item)
     {
+        // Validierung des Bildes
         $request->validate([
-            'title' => 'required|max:255',
-            'description' => 'required',
+            'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Erweiterungen und maximale Dateigröße anpassen
         ]);
 
-        $item->update($request->all());
+        // Speichern des neuen Bildes
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $filenameWithExt = $image->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $image->getClientOriginalExtension();
+            $filenameToStore = $filename . '_' . time() . '.' . $extension;
+            $path = $image->storeAs('public/photos', $filenameToStore);
+        } else {
+            $filenameToStore = $item->photo;
+        }
+
+        // Löschen des alten Bildes, wenn es vorhanden ist
+        if ($item->photo && $item->photo != 'noimage.jpg') {
+            Storage::delete('public/photos/' . $item->photo);
+        }
+
+        // Aktualisieren des Bildpfads in der Datenbank
+        $item->photo = $filenameToStore;
+
+        // Aktualisieren der anderen Daten des Artikels
+        $item->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
 
         return redirect()->route('items.show', $item->id)->with('success', 'Artikel erfolgreich aktualisiert.');
     }
+    
+public function edit(Item $item)
+{
+    return view('items.edit', compact('item'));
+}
 
-    public function destroy(Item $item)
-    {
-        $item->delete();
-        return redirect()->route('startPage')->with('success', 'Artikel erfolgreich gelöscht.');
-    }
-
-    public function edit(Item $item)
-    {
-        
-        return view('items.edit', compact('item'));
-    }
 }
