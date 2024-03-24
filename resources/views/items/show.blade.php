@@ -20,7 +20,7 @@
                     <dt class="content-text">
                     </dt>
                     <dd class="mt-1 content-text sm:mt-0 sm:col-span-2">
-                    <img src="{{ Storage::url($item->photo) }}" alt="Artikelbild" class="w-full h-auto">
+                    <img src="{{ asset('storage/photos/' . $item->photo) }}" alt="Artikelbild" class="w-full h-auto">
                     </dd>
                 </div>
                 <div class="mb-5"></div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Item; 
 use Intervention\Image\Facades\Image;
 
+
 class ArticleController extends Controller
 {
     public function createItem()
@@ -30,11 +31,12 @@ class ArticleController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $image = $request->file('photo');
+            $filenameWithExt = $image->getClientOriginalName();
             $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-            $extension = $request->file('photo')->getClientOriginalExtension();
-            $filenameToStore = $filename.'_'.time().'.'.$extension;
-            $path = $request->file('photo')->storeAs('public/photos', $filenameToStore);
+            $extension = $image->getClientOriginalExtension();
+            $filenameToStore = $filename . '_' . time() . '.' . $extension; // Behalten Sie die Originalerweiterung
+            $path = $image->storeAs('public/photos', $filenameToStore);
         } else {
             $filenameToStore = 'noimage.jpg';
         }

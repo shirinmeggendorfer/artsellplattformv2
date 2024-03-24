@@ -27,7 +27,7 @@
         <h2 class="h2-text text-left mt-4 mb-6 px-5">zuletzt hochgeladen</h2>
         @foreach($items as $item)
             <a href="{{ route('items.show', $item) }}" class="px-5 w-full block text-black no-underline">
-                <img class="article-image" src="{{ Storage::url($item->photo) }}" alt="Artikel Foto">
+                <img class="article-image" src="{{ asset('storage/photos/' . $item->photo) }}" alt="Artikel Foto">
                 <div class="px-5 py-1">
                     <div class="h3-text mb-1">{{ $item->title }}</div>
                     <p class="content-text">
