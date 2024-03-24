@@ -17,7 +17,7 @@
 
             {{-- Nachrichtentext --}}
             <div class="form-group">
-                <textarea name="message" id="message" class="form-control content-text w-full p-4" rows="4" required></textarea>
+                <textarea name="message" id="message" class="form-control light-color content-text w-full p-4" rows="4" required></textarea>
             </div>
 
             {{-- Senden-Button --}}

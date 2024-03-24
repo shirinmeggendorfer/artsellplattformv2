@@ -15,12 +15,12 @@
                     Verkäufer: {{ $item->user->name }}
                 </p>
             </div>
-            <div class="border-t border-gray-200">
+        
                 <div class=" px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="content-text">
                     </dt>
                     <dd class="mt-1 content-text sm:mt-0 sm:col-span-2">
-                    <img src="{{ asset('storage/photos/' . $item->photo) }}" alt="Artikelbild" class="w-full h-auto">
+                    <img src="{{ asset('storage/photos/' . $item->photo) }}" alt="Artikelbild" class="w-full h-auto br-cards">
                     </dd>
                 </div>
                 <div class="mb-5"></div>

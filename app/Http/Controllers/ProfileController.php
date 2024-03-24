@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
+
 class ProfileController extends Controller
 {
     
@@ -21,6 +22,40 @@ class ProfileController extends Controller
         return view('profile.edit', compact('user', 'items'));
     }
 
+
+
+    public function updatePicture(Request $request)
+{
+    $request->validate([
+        'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Maximale Dateigröße in Kilobyte
+    ]);
+
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+
+        try {
+            $filename = auth()->user()->name . '-profileimage-' . now()->format('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('profilepictures', $filename, 'public'); // Bild im Ordner "profilepictures" im öffentlichen Storage speichern
+
+            // Speichern Sie den Bildpfad in der Datenbank
+            $user = auth()->user();
+            $user->profile_image = 'profilepictures/'.$filename;
+            $user->save();
+
+            return redirect()->back()->with('success', 'Profilbild erfolgreich aktualisiert.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Fehler beim Speichern des Bildes.');
+        }
+    }
+
+    return redirect()->back()->with('error', 'Es wurde kein Bild ausgewählt.');
+}
+
+
+
+    
+
+    
 
     /**
      * Update the user's profile information.

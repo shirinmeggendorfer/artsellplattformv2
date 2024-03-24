@@ -1,7 +1,7 @@
 <!-- Navigationsleiste -->
 <script src="{{ asset('js/checkMessages.js') }}"></script>
 
-<nav class="light:base-color-dark  p-4 text-white fixed inset-x-0 bottom-0 flex justify-around">
+<nav class="light-color  p-4 text-white fixed inset-x-0 bottom-0 flex justify-around">
     @if(auth()->check())
         <a href="{{ route('startPage') }}" class="iconHome"></a>
         <a href="{{ route('messages.index') }}" class="{{ $hasNewMessages ? 'iconNewMessage' : 'iconMessage' }}"></a>

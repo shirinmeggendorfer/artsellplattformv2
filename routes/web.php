@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profileEdit', [ProfileController::class, 'update'])->name('profileUpdate');
     Route::delete('/profileEdit', [ProfileController::class, 'destroy'])->name('profileDestroy');
+   
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index')->middleware('auth');
     Route::get('/messages/create/{recipient}/{articleId}', [MessageController::class, 'create'])->name('messages.create')->middleware('auth');
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store')->middleware('auth');
@@ -44,6 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages/reply/{user}/{articleId}', [MessageController::class, 'reply'])->name('messages.reply')->middleware('auth');
 
 });
+
+Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
+
 
 Route::get('/search', function () {
     return view('itemOverview');

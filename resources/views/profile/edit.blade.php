@@ -5,6 +5,27 @@
         </h2>
     </x-slot>
 
+    <div class="py-4">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            <!-- Begrüßung und Profilbild -->
+            <div class="flex items-center space-x-4">
+    <form id="profileForm" action="{{ route('profile.update-picture') }}" method="POST" enctype="multipart/form-data" class="flex items-center">
+        @csrf
+        <div class="px-5 relative overflow-hidden mr-4">
+            <div class="mt-4">
+                <x-label :value="__('Aktuelles Bild')" />
+                <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Aktuelles Bild" class="br-profile-picture profile-image">
+            </div>
+            <input type="file" id="profileImageInput" name="profile_image" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="submitForm()">
+        </div>
+        <div>
+            <p class="content-text">Hallo, {{ auth()->user()->name }}</p>
+            <x-button type="button" onclick="document.getElementById('profileImageInput').click()">Bild aktualisieren</x-button>
+        </div>
+    </form>
+</div>
+           
+
 
     <div class="py-4">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -96,7 +117,11 @@
             <x-navbar />
         </div>
     </div>
-
+    <script>
+    function submitForm() {
+        document.getElementById('profileForm').submit();
+    }
+</script>
     <!-- Alpine.js für das Accordion -->
     <script src="//unpkg.com/alpinejs" defer></script>
 </x-app-layout>

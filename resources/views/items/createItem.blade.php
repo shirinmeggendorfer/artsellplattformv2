@@ -22,7 +22,7 @@
             <div>
                 <x-input-label for="description" :value="__('Beschreibung')" />
                 <div class= "mb-2"> </div>
-                <x-text-input id="description" rows="4" class="form-control w-full border-gray-300 px-4 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:accent-color" type="text" name="description" :value="old('description')" required autofocus autocomplete="description" />
+                <textarea id="description" name="description" rows="4" class="block w-full p-5 content-text light-color mb-5"type="text" name="description" :value="old('description')" required autofocus autocomplete="description"></textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
 
