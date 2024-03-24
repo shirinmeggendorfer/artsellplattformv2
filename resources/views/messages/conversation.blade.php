@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="light:base-color-light flex items-center space-x-4">
             <a href="{{ route('items.show', $article->id) }}" class="flex items-center no-underline">
-                <img src="{{ Storage::url($article->photo) }}" alt="{{ $article->title }}" class="w-16 h-16 mr-4">
+                <img src="{{ asset('storage/photos/' . $article->photo) }}" alt="{{ $article->title }}" class="w-16 h-16 mr-4">
                 <div>
                     <h2 class="h2-text">
                         {{ $article->title }}
