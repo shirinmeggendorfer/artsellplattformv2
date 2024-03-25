@@ -8,11 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\Models\Item;
 
 
 class ProfileController extends Controller
 {
-    
+    // Artikel löschen
+public function destroyItem(Item $item)
+{
+    $item->delete();
+    return redirect()->back()->with('success', 'Artikel erfolgreich gelöscht.');
+}
 
     public function edit()
     {

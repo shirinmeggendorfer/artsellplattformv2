@@ -69,6 +69,15 @@
         <div class= "mb-6"> </div>
 
 </form>
+<!-- Löschen-Schaltfläche -->
+<form method="POST" action="{{ route('admin.users.destroy', ['user' => $user->id]) }}">
+    @csrf
+    @method('DELETE')
+    <div class="flex items-center gap-4">
+        <x-button type="submit" onclick="return confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?')" class="text-red-500 hover:text-red-700">Benutzer löschen</x-button>
+    </div>
+</form>
+<div class= "mb-6"> </div>
 
 
 

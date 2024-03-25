@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profileEdit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profileEdit', [ProfileController::class, 'update'])->name('profileUpdate');
     Route::delete('/profileEdit', [ProfileController::class, 'destroy'])->name('profileDestroy');
+    Route::delete('profile/items/{item}', [ProfileController::class, 'destroyItem'])->name('items.destroy');
    
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index')->middleware('auth');
     Route::get('/messages/create/{recipient}/{articleId}', [MessageController::class, 'create'])->name('messages.create')->middleware('auth');
@@ -73,7 +74,7 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
-    
+    Route::delete('admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
     
     Route::get('/admin/articles', [AdminController::class, 'listArticles'])->name('admin.articles.index');
     Route::get('/admin/articles/{item}/edit', [AdminController::class, 'editArticle'])->name('admin.articles.edit');

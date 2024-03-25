@@ -39,7 +39,14 @@ class AdminController extends Controller
 
     return redirect()->route('admin.dashboard')->with('success', 'Benutzer erfolgreich aktualisiert.');
 }
-    
+
+// Benutzer löschen
+public function destroyUser(User $user)
+{
+    $user->delete();
+    return redirect()->route('admin.dashboard')->with('success', 'Benutzer erfolgreich gelöscht.');
+}
+
         // Artikel eines Benutzers zur Bearbeitung anzeigen
         public function editArticle(Item $item)
         {

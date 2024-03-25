@@ -8,7 +8,7 @@
         <li class="mt-2">
             <div class="flex flex-col items-center">
                 <!-- Miniaturbild oben -->
-                <img src="{{ Storage::url($item->photo) }}" alt="{{ $item->title }}" class="w-full h-20 object-cover">
+                <img src="{{ asset('storage/photos/' . $item->photo) }}" alt="{{ $item->title }}" class="w-full h-20 object-cover">
                 <!-- Titel darunter -->
                 <div class="text-center mb-2">{{ $item->title }}</div>
                 <!-- Bearbeiten und Löschen Optionen unten -->
