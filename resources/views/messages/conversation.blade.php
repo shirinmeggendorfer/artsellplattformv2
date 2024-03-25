@@ -15,25 +15,26 @@
 
 <div class="mb-8 light:base-color-light" ></div>
 @foreach ($groupedMessages as $date => $messagesOnDate)
-    <div class="px-4 py-5 sm:p-6">
-        <h4 class="mb-4 h3-text">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
-        @foreach ($messagesOnDate as $message)
-            <div class="mb-2 flex justify-between">
-                <div class="content-text flex-grow @if($message->sender_id == auth()->id()) light-color @else accent-color @endif p-2 br-messages">
-                    <strong>{{ $message->sender_id == auth()->id() ? 'Du' : $user->name }}:</strong>
-                    {{ $message->body }}
-                </div>
-                <span class="content-text">{{ $message->created_at->format('H:i') }}</span>
+            <div class="px-4 py-5 sm:p-6">
+                <h4 class="mb-4 h3-text">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
+                @foreach ($messagesOnDate as $message)
+                    <div class="mb-2 flex justify-between">
+                        <div class="content-text flex-grow @if($message->sender_id == auth()->id()) light-color @else accent-color @endif p-2 br-messages">
+                            <!-- Hier wird nur der erste Buchstabe des Benutzernamens angezeigt -->
+                            <strong>{{ $message->sender_id == auth()->id() ? 'Du' : substr($user->name, 0, 1) }}:</strong>
+                            {{ $message->body }}
+                        </div>
+                        <span class="content-text">{{ $message->created_at->format('H:i') }}</span>
+                    </div>
+                    @if($message->image_path)
+                        <div class="text-right">
+                            <!-- Kleinere Bildvorschau im Chat -->
+                            <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
+                        </div>
+                    @endif
+                @endforeach
             </div>
-            @if($message->image_path)
-                <div class="text-right">
-                    <!-- Kleinere Bildvorschau im Chat -->
-                    <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
-                </div>
-            @endif
         @endforeach
-    </div>
-@endforeach
 
 
     </div>

@@ -38,7 +38,7 @@
                         @if($item->photo)
                             <div class="mt-4">
                                 <x-label :value="__('Aktuelles Bild')" />
-                                <img src="{{ Storage::url($item->photo) }}" alt="Aktuelles Bild" class="w-48 h-auto">
+                                <img src="{{ asset('storage/photos/' . $item->photo) }}" alt="Aktuelles Bild" class="w-48 content-text h-auto">
                             </div>
                         @endif
 
