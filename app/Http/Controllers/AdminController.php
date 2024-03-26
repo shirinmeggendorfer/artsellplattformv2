@@ -43,9 +43,15 @@ class AdminController extends Controller
 // Benutzer löschen
 public function destroyUser(User $user)
 {
+    // Löschen Sie zuerst alle verknüpften Datensätze in der Tabelle items
+    $user->items()->delete();
+
+    // Löschen Sie dann den Benutzer
     $user->delete();
+
     return redirect()->route('admin.dashboard')->with('success', 'Benutzer erfolgreich gelöscht.');
 }
+
 
         // Artikel eines Benutzers zur Bearbeitung anzeigen
         public function editArticle(Item $item)
@@ -85,4 +91,3 @@ public function destroyUser(User $user)
     }
 
 }
-

@@ -55,18 +55,34 @@
                     </form>
                 </div>
                 <div class="mb-2"></div>
-                <!-- Löschen-Schaltfläche -->
-                <form method="POST" action="{{ route('admin.articles.destroy', ['item' => $item->id]) }}">
-                    @csrf
-                    @method('DELETE')
-                    <div class="flex items-center justify-end mt-4">
-                    <x-button type="submit" onclick="return confirm('Sind Sie sicher, dass Sie diesen Artikel löschen möchten?')" class="text-red-500 hover:text-red-700 py-12">Artikel löschen</x-button>
-                    </div>
-                </form>
+    
+
+              <!-- Löschen-Schaltfläche -->
+    <form id="deleteForm{{ $item->id }}" method="POST" action="{{ route('admin.articles.destroy', ['item' => $item->id]) }}">
+        @csrf
+        @method('DELETE')
+        <div class="flex items-center justify-end mt-4">
+            <x-button type="button" onclick="confirmDelete({{ $item->id }})" class="text-red-500 hover:text-red-700 py-12">Artikel löschen</x-button>
+        </div>
+    </form>
     
             </div>
         </div>
     </div>
+  <!-- Include JavaScript library -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <!-- Anzeige des Löschdialogs -->
+    <script>
+        function confirmDelete(itemId) {
+            if (confirm('Sind Sie sicher, dass Sie diesen Artikel löschen möchten?')) {
+                // Formular manuell einreichen, um den Artikel zu löschen
+                document.getElementById('deleteForm' + itemId).submit();
+                            // Alertbox für erfolgreiche Löschung anzeigen
+            alert('Die Anzeige wurde gelöscht.');
+            }
+        }
+    </script>
+
        <!-- Fixed Navigationsleiste -->
        <x-navbar />
 </x-app-layout>

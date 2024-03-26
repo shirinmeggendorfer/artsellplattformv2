@@ -11,7 +11,7 @@
         <!-- Fixed Suchleiste -->
         <form id="searchForm" action="{{ route('startPage') }}" method="GET" class="base-color-light flex justify-center pt-5 px-5">
             <x-text-input type="text" name="search" id="searchInput" placeholder="Suche..." class="form-control w-full px-5 h-12 content-text light-color dark-placeholder" value="{{ request('search') }}"/>
-            <x-button type="button" id="searchButton" class="ml-2 px-5 accent-color">Suchen</x-button>
+            <x-button type="submit" id="searchButton" class="ml-2 px-5 accent-color">Suchen</x-button>
         </form>
         
 

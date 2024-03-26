@@ -116,13 +116,14 @@ Setup:
              Starten Sie den XAMPP-Control-Panel und starten Sie den MySQL-Dienst.
         Sie können phpMyAdmin in Ihrem Browser öffnen, indem Sie zu http://localhost/phpmyadmin navigieren, um Ihre Datenbanken zu verwalten.
 
-
+Unittest:
+terminal: php vendor/bin/phpunit tests/Unit/createItem.php
 
 User zum testen:
 
 Testuser:
 name: TestUser
-email testuser@test.om
+email testuser@test.com
 passwort test1234
 
 TestUser2:

@@ -93,11 +93,11 @@
                     <h5 class="h3-text text-center">{{ $item->title }}</h5>
                     <div class="mt-2">
                         <a href="{{ route('items.edit', $item->id) }}" class="btn btn-primary justify-center content-text-small w-full mb-2">Bearbeiten</a>
-                        <form action="{{ route('items.destroy', $item->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('Sind Sie sicher, dass Sie diesen Artikel löschen möchten?')" class="justify-center content-text-small btn btn-danger w-full">Löschen</button>
-                        </form>
+                        <form id="deleteForm{{ $item->id }}" action="{{ route('items.destroy', $item->id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+    <button type="button" onclick="confirmDelete({{ $item->id }})" class="justify-center content-text-small btn btn-danger w-full">Löschen</button>
+</form>
                     </div>
                 </div>
             </div>
@@ -133,6 +133,18 @@
     <script>
     function submitForm() {
         document.getElementById('profileForm').submit();
+    }
+    <!-- Include JavaScript library -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<!-- Anzeige des Löschdialogs -->
+<script>
+    function confirmDelete(itemId) {
+        if (confirm('Sind Sie sicher, dass Sie diesen Artikel löschen möchten?')) {
+            // Formular manuell einreichen, um den Artikel zu löschen
+            document.getElementById('deleteForm' + itemId).submit();
+            // Alertbox für erfolgreiche Löschung anzeigen
+            alert('Die Anzeige wurde gelöscht.');
+        }
     }
 </script>
     <!-- Alpine.js für das Accordion -->

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->boolean('is_admin')->default(false)->after('password'); // Fügt die Spalte is_admin hinzu
+            $table->boolean('is_admin')->default(false); 
     
         });
     }

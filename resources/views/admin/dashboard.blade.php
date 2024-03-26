@@ -20,30 +20,53 @@
 
 
                 <div class="border-t">
-                    @foreach($users as $user)
-
-                    <div x-data="{ open: false }">
-            <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 text-left content-text hover:accent-color">
-                <span>  {{ $user->name }}</span>
-                <svg x-show="!open" class="iconNext h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-                <svg x-show="open" class="iconDown h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" style="display: none;">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
-            
-            </button>
-            <div x-show="open" x-transition class="p-4 mt-2 light:base-color-light rounded-lg">
-            @include('admin.partials.editUserForm', ['user' => $user])
-            @include('admin.partials.editUserArticles', ['user' => $user])
-                
-            </div>
-
-
-                    </div>
-            
-                    @endforeach
+    @foreach($users as $user)
+    <div x-data="{ open: false }">
+        <button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 text-left content-text hover:accent-color">
+            <span>{{ $user->name }}</span>
+            <svg x-show="!open" class="iconNext h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            <svg x-show="open" class="iconDown h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+        <div x-show="open" x-transition class="p-4 mt-2 light:base-color-light rounded-lg">
+            <!-- Akkordeon für Profilinformationen -->
+            <div x-data="{ openForm: false }">
+                <button @click="openForm = !openForm" class="w-full flex items-center justify-between px-4 py-2 text-left content-text hover:accent-color">
+                    <span>Profilinformationen</span>
+                    <svg x-show="!openForm" class="iconNext h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <svg x-show="openForm" class="iconDown h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="openForm" x-transition class="p-4 mt-2 light:base-color-light rounded-lg">
+                    @include('admin.partials.editUserForm', ['user' => $user])
                 </div>
+            </div>
+            <!-- Akkordeon für Artikel -->
+            <div x-data="{ openArticles: false }">
+                <button @click="openArticles = !openArticles" class="w-full flex items-center justify-between px-4 py-2 text-left content-text hover:accent-color">
+                    <span>Artikel</span>
+                    <svg x-show="!openArticles" class="iconNext h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                    <svg x-show="openArticles" class="iconDown h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </button>
+                <div x-show="openArticles" x-transition class="p-4 mt-2 light:base-color-light rounded-lg">
+                    @include('admin.partials.editUserArticles', ['user' => $user])
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+
             </div>
         </div>
     </div>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Str;
+
 
 class RegisteredUserController extends Controller
 {
@@ -40,23 +42,28 @@ class RegisteredUserController extends Controller
                 'email',
                 'max:255',
                 'unique:'.User::class,
+               /*
                 // Benutzerdefinierte Validierung für die E-Mail-Domain
                 function ($attribute, $value, $fail) {
-                    $allowedDomains = ['.de', 'net', '.com', '.it', 'fr', 'org', 'esp']; // Erlaubte Domains hier einfügen
+                    $allowedDomains = ['.de', 'net', 'test.com', '.it', 'fr', 'org', 'esp']; // Erlaubte Domains hier einfügen
                     $atIndex = strrpos($value, '@');
                     if ($atIndex !== false) {
                         $domain = substr($value, $atIndex + 1);
                         if (!in_array($domain, $allowedDomains)) {
+                   
                             $fail('Die E-Mail-Domain muss eine der folgenden sein: ' . implode(', ', $allowedDomains) . '.');
                         }
                     } else {
                         $fail('Die E-Mail muss ein "@"-Symbol enthalten.');
                     }
                 },
+                 */ 
             ],
-            
+          
+        
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+        
 
         $user = User::create([
             'name' => $request->name,

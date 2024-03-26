@@ -12,33 +12,34 @@
             </a>
         </div>
     </x-slot>
-
-<div class="mb-8 light:base-color-light" ></div>
-@foreach ($groupedMessages as $date => $messagesOnDate)
-            <div class="px-4 py-5 sm:p-6">
-                <h4 class="mb-4 h3-text">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
-                @foreach ($messagesOnDate as $message)
-                    <div class="mb-2 flex justify-between">
-                        <div class="content-text flex-grow @if($message->sender_id == auth()->id()) light-color @else accent-color @endif p-2 br-messages">
-                            <!-- Hier wird nur der erste Buchstabe des Benutzernamens angezeigt -->
-                            <strong>{{ $message->sender_id == auth()->id() ? 'Du' : substr($user->name, 0, 1) }}:</strong>
-                            {{ $message->body }}
+<div id="messagesContainer" class=" h-screen max-h-full">
+    <div class="mb-8 light:base-color-light" ></div>
+    @foreach ($groupedMessages as $date => $messagesOnDate)
+                <div class="px-4 py-5 sm:p-6">
+                    <h4 class="mb-4 h3-text">{{ \Carbon\Carbon::parse($date)->format('d.m.Y') }}</h4>
+                    @foreach ($messagesOnDate as $message)
+                        <div class="mb-2 flex justify-between">
+                            <div class="content-text flex-grow @if($message->sender_id == auth()->id()) light-color @else accent-color @endif p-2 br-messages">
+                                <!-- Hier wird nur der erste Buchstabe des Benutzernamens angezeigt -->
+                                <strong>{{ $message->sender_id == auth()->id() ? 'Du' : substr($user->name, 0, 1) }}:</strong>
+                                {{ $message->body }}
+                            </div>
+                            <span class="content-text">{{ $message->created_at->format('H:i') }}</span>
                         </div>
-                        <span class="content-text">{{ $message->created_at->format('H:i') }}</span>
-                    </div>
-                    @if($message->image_path)
-                        <div class="text-right">
-                            <!-- Kleinere Bildvorschau im Chat -->
-                            <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
-                        </div>
-                    @endif
-                @endforeach
-            </div>
-        @endforeach
+                        @if($message->image_path)
+                            <div class="text-right">
+                                <!-- Kleinere Bildvorschau im Chat -->
+                                <img src="{{ Storage::url($message->image_path) }}" alt="Bild" style="max-width: 100px; cursor: pointer;" onclick="showImage('{{ Storage::url($message->image_path) }}')">
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+            @endforeach
 
 
-    </div>
-    <div class="mb-80"></div>
+        </div>
+        <div class="mb-60"></div>
+ </div>
 
    
 <!-- Antwort-Formular, jetzt am unteren Rand fixiert -->
@@ -57,7 +58,17 @@
         
         <x-button type="submit" class="px-4 py-2 mt-3 conten-text light-color  hover:main-color-light">Senden</x-button>
     </form>
-</div>
+    </div>
+
+
+    <!-- JavaScript für das automatische Scrollen -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const messagesContainer = document.getElementById('messagesContainer');
+            messagesContainer.scrollTo(0, -100000);
+        });
+    </script>
+
 
 <script>
     function showThumbnail(input) {
@@ -112,33 +123,6 @@
     });
 </script>
 
-
-
-
-    <script>
-        // Automatisches Scrollen zum unteren Teil des Nachrichtenbereichs
-        document.addEventListener("DOMContentLoaded", function() {
-        // Definiert, wie oft gescrollt werden soll
-        const numberOfScrolls = 5;
-        let currentScroll = 0;
-
-        // Funktion, die das Scrollen durchführt
-        function scrollDown() {
-            const messagesContainer = document.getElementById('messagesContainer');
-            if (messagesContainer && currentScroll < numberOfScrolls) {
-                messagesContainer.scrollTop = messagesContainer.scrollHeight+1000;
-                currentScroll++;
-                setTimeout(scrollDown, 100); // Wiederholt nach einer kurzen Verzögerung
-     
-            }
-        }
-
-        // Startet das Scrollen beim Laden der Seite
-        scrollDown();
-    });
-
-    </script>
-<div class="mb-60"></div>
 
     <x-navbar />
 </x-app-layout>

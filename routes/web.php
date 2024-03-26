@@ -75,6 +75,8 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::get('/admin/users/{user}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('admin/users/{user}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
+    Route::delete('/admin/users/{user}/confirm-destroy', [AdminController::class, 'confirmDestroyUser'])->name('admin.users.confirmDestroy');
+
     
     Route::get('/admin/articles', [AdminController::class, 'listArticles'])->name('admin.articles.index');
     Route::get('/admin/articles/{item}/edit', [AdminController::class, 'editArticle'])->name('admin.articles.edit');
