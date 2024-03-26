@@ -31,31 +31,35 @@ public function destroyItem(Item $item)
 
 
     public function updatePicture(Request $request)
-    {
-        $request->validate([
-            'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Maximale Dateigröße in Kilobyte
-        ]);
-    
-        if ($request->hasFile('profile_image')) {
-            $image = $request->file('profile_image');
-    
-            try {
-                $filename = auth()->user()->name . '-profileimage-' . now()->format('YmdHis') . '.' . $image->getClientOriginalExtension();
-                $path = $image->storeAs('profilepictures', $filename, 'public'); // Bild im Ordner "profilepictures" im öffentlichen Storage speichern
-    
-                // Speichern Sie den Bildpfad in der Datenbank
-                $user = auth()->user();
-                $user->profile_image = 'profilepictures/'.$filename;
-                $user->save();
-    
-                return redirect()->back()->with('success', 'Profilbild erfolgreich aktualisiert.');
-            } catch (\Exception $e) {
-                return redirect()->back()->with('error', 'Fehler beim Speichern des Bildes.');
-            }
+{
+    // Debugging: Prüfen, ob die Methode aufgerufen wird und die Daten erhalten werden
+   // dd($request->all());
+
+    $request->validate([
+        'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Maximale Dateigröße in Kilobyte
+    ]);
+
+    if ($request->hasFile('profile_image')) {
+        $image = $request->file('profile_image');
+
+        try {
+            $filename = auth()->user()->name . '-profileimage-' . now()->format('YmdHis') . '.' . $image->getClientOriginalExtension();
+            $path = $image->storeAs('profilepictures', $filename, 'public'); // Bild im Ordner "profilepictures" im öffentlichen Storage speichern
+
+            // Speichern Sie den Bildpfad in der Datenbank
+            $user = auth()->user();
+            $user->profile_image = 'profilepictures/'.$filename;
+            $user->save();
+
+            return redirect()->back()->with('success', 'Profilbild erfolgreich aktualisiert.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Fehler beim Speichern des Bildes.');
         }
-    
-        return redirect()->back()->with('error', 'Es wurde kein Bild ausgewählt.');
     }
+
+    return redirect()->back()->with('error', 'Es wurde kein Bild ausgewählt.');
+}
+
     
 
 

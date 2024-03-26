@@ -86,6 +86,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 });
 
 
-Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
+Route::post('/profile/updatepicture', [ProfileController::class, 'updatePicture'])->name('profile.updatepicture');
 
 require __DIR__.'/auth.php';
