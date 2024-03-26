@@ -27,6 +27,7 @@
     </div>
 </div>
 
+
            
 
 
@@ -52,6 +53,7 @@
         </div>
     </div>
 </div>
+<div class="mb-2"></div>
 
 @if(auth()->user()->is_admin)
                 <div x-data="{ open: false }">
@@ -72,7 +74,7 @@
                     </div>
                 </div>
             @endif
-
+            <div class="mb-2"></div>
 <!-- Eigene Anzeigen -->
 <div x-data="{ open: false }">
     <x-button @click="open = !open" class="w-full flex items-center justify-between px-4 py-2 text-left h3-text light-color hover:accent-colour rounded-md">
@@ -84,7 +86,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
         </svg>
     </x-button>
-    <div x-show="open" class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+    <div x-show="open" class="py-2 grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
     @if($items && $items->count() > 0)
         @foreach ($items as $item)
             <div class="light-color rounded-lg overflow-hidden shadow">

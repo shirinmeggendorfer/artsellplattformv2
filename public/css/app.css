@@ -568,9 +568,6 @@ video {
 .mb-8 {
   margin-bottom: 2rem;
 }
-.mb-80 {
-  margin-bottom: 20rem;
-}
 .ml-12 {
   margin-left: 3rem;
 }
@@ -657,6 +654,9 @@ video {
 }
 .h-screen {
   height: 100vh;
+}
+.max-h-full {
+  max-height: 100%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -753,9 +753,6 @@ video {
 }
 .justify-around {
   justify-content: space-around;
-}
-.gap-2 {
-  gap: 0.5rem;
 }
 .gap-4 {
   gap: 1rem;

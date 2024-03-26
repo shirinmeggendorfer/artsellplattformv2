@@ -47,7 +47,6 @@ Route::middleware('auth')->group(function () {
 
 });
 
-Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
 
 
 Route::get('/search', function () {
@@ -87,6 +86,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 });
 
 
-
+Route::post('/profile/update-picture', [ProfileController::class, 'updatePicture'])->name('profile.update-picture');
 
 require __DIR__.'/auth.php';
