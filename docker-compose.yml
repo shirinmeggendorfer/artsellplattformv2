@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APP_NAME=LaravelWebApp
+      - APP_ENV=local
+      - APP_KEY=base64:z1kLPlST3D4cWwmLbCwy5hSQ7QxNOFbynUb0WxJA7HE=
+      - APP_DEBUG=true
+      - APP_URL=http://localhost
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_DATABASE=meinprojekt
+      - DB_USERNAME=root
+      - DB_PASSWORD=test12345678
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: test12345678
+      MYSQL_DATABASE: meinprojekt
+    ports:
+      - "3306:3306"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8000:80"
+    volumes:
+      - ./laravel.conf:/etc/nginx/conf.d/default.conf
+      - .:/var/www/html
+    depends_on:
+      - app
