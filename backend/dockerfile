@@ -1,0 +1,44 @@
+# Verwende das offizielle PHP-Basisimage mit PHP-FPM
+FROM php:8.2-fpm
+
+# Installiere Systemabhängigkeiten
+RUN apt-get update && apt-get install -y \
+    zip \
+    unzip \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    libzip-dev \
+    zip \
+    unzip
+
+# Lösche Cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Installiere PHP-Erweiterungen
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip
+
+# Installiere Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Setze das Arbeitsverzeichnis im Container
+WORKDIR /var/www/html
+
+# Kopiere die Anwendungsdateien in das Arbeitsverzeichnis des Containers
+COPY . /var/www/html
+
+# Installiere die PHP-Abhängigkeiten
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+RUN php artisan storage:link
+# Berechtigungen für den Lager- und Bootstrap-Cacheordner ändern
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+RUN chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Exponiere den Port, auf dem Laravel läuft
+EXPOSE 8000
+
+# Starte Laravel mit PHPs eingebautem Server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
