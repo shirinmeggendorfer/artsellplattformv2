@@ -36,7 +36,7 @@ function ArticleDisplay() {
             </div>
 
             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <img src={item.photo} alt="Artikelbild" className="w-full h-auto br-cards" />
+            <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} />
             </div>
 
             <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">

@@ -68,7 +68,7 @@ function StartPage() {
           <h2 className="h2-text text-left mt-4 mb-6 px-5">zuletzt hochgeladen</h2>
           {items.map(item => (
             <a key={item.id} href={`/items/${item.id}`} className="px-5 w-full block text-black no-underline">
-              <img className="article-image br-cards" src={`backend/storage/app/public/photos/${item.photo}`} alt="Artikel Foto" />
+              <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} />
               <div className="px-5 py-1">
                 <div className="h3-text mb-1">{item.title}</div>
                 <p className="content-text">

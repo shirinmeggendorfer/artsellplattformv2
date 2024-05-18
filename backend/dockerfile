@@ -1,3 +1,5 @@
+# backend/Dockerfile
+
 # Verwende das offizielle PHP-Basisimage mit PHP-FPM
 FROM php:8.2-fpm
 
@@ -50,6 +52,9 @@ RUN chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 # Veröffentlichen Sie die Sanctum-Konfigurationsdatei
 RUN composer require laravel/sanctum
 RUN php artisan vendor:publish --provider="Laravel\\Sanctum\\SanctumServiceProvider"
+
+# Symlink für Storage erstellen
+RUN php artisan storage:link
 
 # Ändere den aktuellen Benutzer zu www-data
 USER www-data

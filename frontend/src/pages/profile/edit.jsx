@@ -81,7 +81,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
         <div className="mt-4 px-5 flex items-center">
           <label className="x-label">Aktuelles Bild</label>
-          <img src={`/storage/${profileImage}`} alt="Aktuelles Bild" className="br-profile-picture profile-image ml-2" />
+          <img src={`http://localhost:8000/storage/${profileImage}`} alt="Aktuelles Bild" className="br-profile-picture profile-image ml-2" />
           <div className="flex flex-col px-5 ml-2">
             <span className="content-text py-5">Hallo, {user.name}</span>
             <form id="uploadForm" method="POST" encType="multipart/form-data">
