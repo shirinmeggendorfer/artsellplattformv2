@@ -6,7 +6,7 @@ import DeleteUserForm from './delete-user-form';
 import UpdatePasswordForm from './update-password-form';
 import UpdateProfileInformationForm from './update-profile-information-form';
 
-const EditProfile = ({ isAuthenticated, user }) => {
+const EditProfile = ({ isAuthenticated, user, logout }) => {
   const [items, setItems] = useState([]);
   const [profileImage, setProfileImage] = useState(user ? user.profile_image : 'profilepictures/user-2.png');
   const [error, setError] = useState(null);
@@ -130,10 +130,9 @@ const EditProfile = ({ isAuthenticated, user }) => {
 
         <div className="p-4 sm:p-8 light:base-color-light">
           <div className="max-w-xl">
-            <form method="POST" action="/logout">
-              <button type="submit" className="x-button">Logout</button>
-            </form>
+            <button onClick={logout} className="x-button">Logout</button>
           </div>
+          <div className="mb-20"></div>
         </div>
       </div>
     </div>

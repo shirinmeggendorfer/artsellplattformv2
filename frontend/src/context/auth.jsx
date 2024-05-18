@@ -26,14 +26,14 @@ export const AuthProvider = ({ children }) => {
       await axios.get('http://localhost:8000/sanctum/csrf-cookie', {
         withCredentials: true,
       });
-      await axios.post('http://localhost:8000/api/login', data, {
+      await axios.post('http://localhost:8000/login', data, {
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
         },
         withCredentials: true,
       });
-      const response = await axios.get('http://localhost:8000/api/user', {
+      const response = await axios.get('http://localhost:8000/user', {
         withCredentials: true,
       });
       setIsAuthenticated(true);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    axios.post('http://localhost:8000/api/logout', {}, {
+    axios.post('http://localhost:8000/logout', {}, {
       withCredentials: true,
     })
     .then(() => {

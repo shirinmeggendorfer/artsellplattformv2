@@ -1,7 +1,5 @@
 <?php
 
-// backend/routes/api.php
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,9 +8,24 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 
+
+//Route::get('/sanctum/csrf-cookie', [SanctumCsrfCookieController::class, 'show']);
+
+
+Route::middleware('api')->group(function () {
+    Route::get('/sanctum/csrf-cookie', 'Laravel\Sanctum\Http\Controllers\CsrfCookieController@show')->name('sanctum.csrf-cookie');
+});
+
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [AuthenticatedSessionController::class, 'login']);
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->middleware('auth:sanctum');
+
+
+// Routen, die keine Authentifizierung benötigen
+Route::get('/items', [ArticleController::class, 'index']);
+Route::get('/search', [HomeController::class, 'startPage']);
+Route::get('/items/{item}', [ArticleController::class, 'show']);
+Route::get('/homeitems', [HomeController::class, 'index']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', function (Request $request) {
@@ -24,11 +37,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile/picture', [ProfileController::class, 'updatePicture']);
     Route::delete('/profile', [ProfileController::class, 'destroy']);
     Route::delete('/profile/item/{item}', [ProfileController::class, 'destroyItem']);
-
-    Route::get('/items', [ArticleController::class, 'index']);
-    Route::get('/items/{item}', [ArticleController::class, 'show']);
     Route::post('/items', [ArticleController::class, 'store']);
 
-    Route::get('/homeitems', [HomeController::class, 'index']);
-    Route::get('/search', [HomeController::class, 'startPage']);
+    
 });

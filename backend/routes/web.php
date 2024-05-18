@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
+//Route::get('/sanctum/csrf-cookie', [SanctumCsrfCookieController::class, 'show']);
+
+
 Route::get('/', function () {
     return ['Laravel' => app()->version()];
 });

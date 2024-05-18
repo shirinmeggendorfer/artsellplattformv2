@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios, { getCsrfToken } from './Components/auth/axios';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ArticleDisplay from './pages/article/ArticleDisplay';
@@ -7,21 +7,19 @@ import StartPage from './Components/StartPage';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Navbar from './Components/NavBar';
-import EditProfile from './pages/profile/edit'; // Import der Profil-Edit-Komponente
+import EditProfile from './pages/profile/edit';
+import PrivateRoute from './Components/PrivateRoute';
 
-// Layout Komponente
-function Layout({ children, isAuthenticated, logout }) {
+function Layout({ children, isAuthenticated }) {
   return (
     <div>
-      {/* Kopfbereich */}
       <header className="light:base-color-light dark:base-color-dark">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           {/* Hier könnte dynamischer Inhalt oder Navigation sein */}
         </div>
       </header>
-      {/* Hauptinhalt */}
       <main>{children}</main>
-      <Navbar isAuthenticated={isAuthenticated} logout={logout} />
+      <Navbar isAuthenticated={isAuthenticated} />
     </div>
   );
 }
@@ -31,25 +29,25 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/user', { withCredentials: true })
-      .then(response => {
-        setIsAuthenticated(true);
-        setUser(response.data);
-      })
-      .catch(() => {
-        setIsAuthenticated(false);
-        setUser(null);
-      });
+    // Ensure we get CSRF token before any authenticated request
+    getCsrfToken().then(() => {
+      axios.get('/user')
+        .then(response => {
+          setIsAuthenticated(true);
+          setUser(response.data);
+        })
+        .catch(() => {
+          setIsAuthenticated(false);
+          setUser(null);
+        });
+    });
   }, []);
 
   const login = async (data) => {
     try {
-      await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
-      await axios.post('http://localhost:8000/api/login', data, {
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        withCredentials: true,
-      });
-      const response = await axios.get('http://localhost:8000/api/user', { withCredentials: true });
+      await getCsrfToken(); // CSRF-Token abrufen
+      await axios.post('/api/login', data);
+      const response = await axios.get('/user');
       setIsAuthenticated(true);
       setUser(response.data);
     } catch (error) {
@@ -59,26 +57,40 @@ function App() {
     }
   };
 
-  const logout = () => {
-    axios.post('http://localhost:8000/api/logout', {}, { withCredentials: true })
-      .then(() => {
-        setIsAuthenticated(false);
-        setUser(null);
-      })
-      .catch(err => {
-        console.error('Logout error:', err);
-      });
+  const logout = async () => {
+    try {
+      await getCsrfToken(); // CSRF-Token abrufen
+      await axios.post('/logout');
+      setIsAuthenticated(false);
+      setUser(null);
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
   };
 
   return (
     <Router>
-      <Layout isAuthenticated={isAuthenticated} logout={logout}>
+      <Layout isAuthenticated={isAuthenticated}>
         <Routes>
           <Route path="/" element={<StartPage />} />
           <Route path="/items/:itemId" element={<ArticleDisplay />} />
           <Route path="/login" element={<Login login={login} />} />
           <Route path="/register" element={<Register login={login} />} />
-          <Route path="/profile/edit" element={<EditProfile isAuthenticated={isAuthenticated} user={user} />} /> {/* Profil-Edit-Route */}
+          <Route path="/profile/edit" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <EditProfile isAuthenticated={isAuthenticated} user={user} logout={logout} />
+            </PrivateRoute>
+          } />
+          <Route path="/messages" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              {/* Nachrichtenkomponente hier */}
+            </PrivateRoute>
+          } />
+          <Route path="/new-article" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              {/* Artikel erstellen Komponente hier */}
+            </PrivateRoute>
+          } />
         </Routes>
       </Layout>
     </Router>
