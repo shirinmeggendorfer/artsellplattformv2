@@ -1,22 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const MessageShow = ({ match }) => {
+const MessageShow = () => {
+  const { id } = useParams();
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    // Fetch message details based on ID
-    // Dummy logic here
-    setMessage({
-      id: match.params.id,
-      body: 'Here is the detail of the message.',
-      senderName: 'John Doe'
-    });
-  }, [match.params.id]);
+    const fetchMessage = async () => {
+      try {
+        const response = await axios.get(`/messages/${id}`);
+        setMessage(response.data);
+      } catch (error) {
+        console.error('Fehler beim Laden der Nachricht:', error);
+      }
+    };
+
+    fetchMessage();
+  }, [id]);
+
+  if (!message) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h2 className="h2-text">Message from {message && message.senderName}</h2>
-      <p>{message && message.body}</p>
+      <h2 className="h2-text">Message from {message.sender.name}</h2>
+      <p>{message.body}</p>
     </div>
   );
 };

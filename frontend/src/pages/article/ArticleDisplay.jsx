@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../../index.css';
 import NavBar from '../../Components/NavBar';
 
 const fetchItem = async (itemId) => {
-  const response = await fetch(`http://localhost:8000/api/items/${itemId}`);
-  if (response.ok) {
-    return response.json();
+  try {
+    const response = await axios.get(`http://localhost:8000/api/items/${itemId}`);
+    if (response.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    console.error('Error fetching item:', error);
+    return null;
   }
-  return null;
 };
 
-function ArticleDisplay() {
-  const { itemId } = useParams();  // Holen der itemId aus der URL
+function ArticleDisplay({ isAuthenticated }) {
+  const { itemId } = useParams();
   const [item, setItem] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (itemId) {
@@ -25,49 +31,46 @@ function ArticleDisplay() {
     return <div>Loading...</div>;
   }
 
+  const handleContact = () => {
+    if (isAuthenticated) {
+      navigate(`/messages/create/${item.user.id}/${item.id}`);
+    } else {
+      navigate('/login');
+    }
+  };
+
   return (
-   
-<div className="light:base-color-light fixed top-0 z-50 w-full mb-2 shadow">
-    <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-6">
+    <div className="light:base-color-light fixed top-0 z-50 w-full mb-2 shadow">
+      <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-6">
         <div className="sm:rounded-lg">
-            <div className="px-4 py-5 sm:px-6">
+          <div className="px-4 py-5 sm:px-6">
             <h3 className="h3-text">{item.title}</h3>
-            <p className="mt-1 max-w-2xl content-text">Verkäufer: item.user.name</p>
-            </div>
-
-            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+            {item.user && <p className="mt-1 max-w-2xl content-text">Verkäufer: {item.user.name}</p>}
+          </div>
+          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} />
-            </div>
-
-            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          </div>
+          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="h3-text">Beschreibung</dt>
             <dd className="content-text">{item.description}</dd>
-            </div>
-
-            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+          </div>
+          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="content-text">Preis</dt>
             <dd className="content-text">{item.price} €</dd>
-            </div>
+          </div>
         </div>
-
         <div className="mt-5 flex justify-end px-5">
-            {item.canContact ? (
-            <a href={`/messages/create/${item.user.id}/${item.id}`} className="light-color hover:accent-color content-text-small py-2 px-4 br-buttons">
-                Anschreiben
-            </a>
-            ) : (
-            <a href="/login" className="light-color hover:accent-color content-text py-2 px-4 br-buttons no-underline">
-                Anschreiben
-            </a>
-            )}
+          <button
+            onClick={handleContact}
+            className="light-color hover:accent-color content-text-small py-2 px-4 br-buttons"
+          >
+            Anschreiben
+          </button>
         </div>
-        <div className='mb-20'> </div>
-        </div>
-     
+        <div className="mb-20"></div>
+      </div>
       <NavBar />
-</div>
-
-
+    </div>
   );
 }
 

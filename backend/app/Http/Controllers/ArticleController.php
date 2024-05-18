@@ -21,6 +21,7 @@ class ArticleController extends Controller
 
 public function show(Item $item)
 {
+    $item->load('user'); 
     return response()->json($item);
 }
 
@@ -114,5 +115,8 @@ public function destroy(Item $item)
         return response()->json(['error' => 'Fehler beim Löschen des Artikels: ' . $e->getMessage()], 500);
     }
 }
+
+
+
 
 }

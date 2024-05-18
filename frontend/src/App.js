@@ -1,5 +1,3 @@
-// frontend/src/App.js
-
 import React, { useState, useEffect } from 'react';
 import axios, { getCsrfToken } from './Components/auth/axios';
 import './index.css';
@@ -13,6 +11,8 @@ import Register from './pages/auth/Register';
 import Navbar from './Components/NavBar';
 import EditProfile from './pages/profile/edit';
 import PrivateRoute from './Components/PrivateRoute';
+import MessageCreate from './pages/messages/MessageCreate';
+import MessageIndex from './pages/messages/MessageIndex';
 
 function Layout({ children, isAuthenticated }) {
   return (
@@ -76,7 +76,7 @@ function App() {
       <Layout isAuthenticated={isAuthenticated}>
         <Routes>
           <Route path="/" element={<StartPage />} />
-          <Route path="/items/:itemId" element={<ArticleDisplay />} />
+          <Route path="/items/:itemId" element={<ArticleDisplay isAuthenticated={isAuthenticated} />} />
           <Route path="/login" element={<Login login={login} />} />
           <Route path="/register" element={<Register login={login} />} />
           <Route path="/profile/edit" element={
@@ -86,7 +86,12 @@ function App() {
           } />
           <Route path="/messages" element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              {/* Nachrichtenkomponente hier */}
+              <MessageIndex />
+            </PrivateRoute>
+          } />
+          <Route path="/messages/create/:recipientId/:articleId" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <MessageCreate />
             </PrivateRoute>
           } />
           <Route path="/new-article" element={

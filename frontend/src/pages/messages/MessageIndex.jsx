@@ -1,16 +1,23 @@
+// frontend/src/pages/messages/MessageIndex.jsx
+
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const MessageIndex = () => {
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
-    // Fetch conversations from an API
-    // Dummy data for example
-    const fetchedConversations = [
-      { id: 1, latestMessage: 'Hello', senderName: 'John Doe', latestMessageDate: new Date().toISOString() },
-      { id: 2, latestMessage: 'Meeting tomorrow?', senderName: 'Jane Smith', latestMessageDate: new Date().toISOString() }
-    ];
-    setConversations(fetchedConversations);
+    const fetchConversations = async () => {
+      try {
+        const response = await axios.get('/messages');
+        setConversations(response.data);
+      } catch (error) {
+        console.error('Fehler beim Laden der Nachrichten:', error);
+      }
+    };
+
+    fetchConversations();
   }, []);
 
   return (
@@ -20,10 +27,12 @@ const MessageIndex = () => {
         {conversations.map((conversation) => (
           <li key={conversation.id} className="flex items-center justify-between px-4 py-2">
             <div>
-              <h3 className="h3-text">{conversation.senderName}</h3>
-              <p className="content-text">{conversation.latestMessage}</p>
+              <h3 className="h3-text">{conversation.sender.name}</h3>
+              <p className="content-text">{conversation.body}</p>
             </div>
-            <span className="content-text">{new Date(conversation.latestMessageDate).toLocaleString()}</span>
+            <Link to={`/conversations/${conversation.sender.id}/${conversation.article_id}`} className="content-text">
+              {new Date(conversation.created_at).toLocaleString()}
+            </Link>
           </li>
         ))}
       </ul>

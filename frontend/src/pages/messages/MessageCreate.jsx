@@ -1,23 +1,35 @@
 import React, { useState } from 'react';
+import axios, { getCsrfToken } from '../../Components/auth/axios';
+import { useNavigate } from 'react-router-dom';
 
-const MessageCreate = () => {
+const MessageCreate = ({ recipientId, articleId }) => {
   const [message, setMessage] = useState('');
-  const [recipientId, setRecipientId] = useState('');  // Should be set according to context or input
-  const [articleId, setArticleId] = useState('');  // Should be set based on selected article
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('Sending message:', message, 'to recipient ID:', recipientId, 'about article ID:', articleId);
-    // Add POST request logic here
+
+    try {
+      await getCsrfToken();
+      await axios.post('/messages', {
+        recipient_id: recipientId,
+        article_id: articleId,
+        body: message,
+      });
+
+      navigate('/messages'); // Redirect to messages list after successful submission
+    } catch (error) {
+      console.error('Fehler beim Senden der Nachricht:', error);
+    }
   };
 
   return (
     <div className="text-left mb-2 w-full px-5">
       <h2 className="h2-text leading-tight">Write Message</h2>
       <form onSubmit={handleSubmit}>
-        <textarea 
-          className="form-control light-color content-text w-full p-4" 
-          rows="4" 
+        <textarea
+          className="form-control light-color content-text w-full p-4"
+          rows="4"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
