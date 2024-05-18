@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+    
+       
+       
+       
         View::composer('*', function ($view) {
             $hasNewMessages = false;
             if (auth()->check()) {

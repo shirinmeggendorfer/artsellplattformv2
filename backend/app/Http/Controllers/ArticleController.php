@@ -6,24 +6,26 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index(Request $request)
-{
-    if ($request->has('search') && $request->search != '') {
-        $items = Item::where('title', 'like', '%' . $request->search . '%')->latest()->get();
-    } else {
-        $items = Item::latest()->get();
+    {
+        if ($request->has('search') && $request->search != '') {
+            $items = Item::where('title', 'like', '%' . $request->search . '%')->latest()->get();
+        } else {
+            $items = Item::latest()->get();
+        }
+
+        return response()->json($items);
     }
 
-    return response()->json($items);
+
+public function show(Item $item)
+{
+    return response()->json($item);
 }
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -56,18 +58,8 @@ class ArticleController extends Controller
     }
     
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Item $item)
-{
-    return response()->json($item);
-}
 
-
-    /**
-     * Update the specified resource in storage.
-     */
+ 
     public function update(Request $request, Item $item)
 {
     $request->validate([

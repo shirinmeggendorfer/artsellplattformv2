@@ -3,74 +3,67 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 use App\Models\Item;
 
 
 class ProfileController extends Controller
 {
     // Artikel löschen
-public function destroyItem(Item $item)
-{
-    $item->delete();
-    return redirect()->back()->with('success', 'Artikel erfolgreich gelöscht.');
-}
+    public function destroyItem(Item $item)
+    {
+        $item->delete();
+        return response()->json(['success' => 'Artikel erfolgreich gelöscht.']);
+    }
 
     public function edit()
     {
         $user = auth()->user();
+    
+        if (!$user) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
+        }
+    
         $items = $user->items()->get(); // Items des Benutzers laden
     
-        return view('profile.edit', compact('user', 'items'));
+        return response()->json(['user' => $user, 'items' => $items]);
     }
-
-
+    
 
     public function updatePicture(Request $request)
-{
-    // Debugging: Prüfen, ob die Methode aufgerufen wird und die Daten erhalten werden
-   // dd($request->all());
+    {
+        $request->validate([
+            'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Maximale Dateigröße in Kilobyte
+        ]);
 
-    $request->validate([
-        'profile_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Maximale Dateigröße in Kilobyte
-    ]);
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
 
-    if ($request->hasFile('profile_image')) {
-        $image = $request->file('profile_image');
+            try {
+                $filename = auth()->user()->name . '-profileimage-' . now()->format('YmdHis') . '.' . $image->getClientOriginalExtension();
+                $path = $image->storeAs('profilepictures', $filename, 'public'); // Bild im Ordner "profilepictures" im öffentlichen Storage speichern
 
-        try {
-            $filename = auth()->user()->name . '-profileimage-' . now()->format('YmdHis') . '.' . $image->getClientOriginalExtension();
-            $path = $image->storeAs('profilepictures', $filename, 'public'); // Bild im Ordner "profilepictures" im öffentlichen Storage speichern
+                // Speichern Sie den Bildpfad in der Datenbank
+                $user = auth()->user();
+                $user->profile_image = 'storage/' . $path;
+                $user->save();
 
-            // Speichern Sie den Bildpfad in der Datenbank
-            $user = auth()->user();
-            $user->profile_image = 'profilepictures/'.$filename;
-            $user->save();
-
-            return redirect()->back()->with('success', 'Profilbild erfolgreich aktualisiert.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Fehler beim Speichern des Bildes.');
+                return response()->json(['success' => 'Profilbild erfolgreich aktualisiert.', 'profile_image' => $user->profile_image]);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Fehler beim Speichern des Bildes.'], 500);
+            }
         }
+
+        return response()->json(['error' => 'Es wurde kein Bild ausgewählt.'], 400);
     }
-
-    return redirect()->back()->with('error', 'Es wurde kein Bild ausgewählt.');
-}
-
-    
-
-
-    
-
-    
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request)
     {
         $request->user()->fill($request->validated());
 
@@ -80,14 +73,13 @@ public function destroyItem(Item $item)
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return response()->json(['status' => 'profile-updated']);
     }
-
 
     /**
      * Delete the user's account.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function destroy(Request $request)
     {
         $request->validateWithBag('userDeletion', [
             'password' => ['required', 'current_password'],
@@ -102,6 +94,6 @@ public function destroyItem(Item $item)
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return response()->json(['message' => 'Account erfolgreich gelöscht.']);
     }
 }

@@ -3,16 +3,23 @@ FROM php:8.2-fpm
 
 # Installiere Systemabhängigkeiten
 RUN apt-get update && apt-get install -y \
+    default-mysql-client \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
     zip \
+    jpegoptim optipng pngquant gifsicle \
+    vim \
     unzip \
     git \
     curl \
-    libpng-dev \
     libonig-dev \
-    libxml2-dev \
     libzip-dev \
-    zip \
-    unzip
+    libcurl4-openssl-dev \
+    netcat-openbsd \
+    iputils-ping
 
 # Lösche Cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -32,13 +39,24 @@ COPY . /var/www/html
 # Installiere die PHP-Abhängigkeiten
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-RUN php artisan storage:link
+# Kopiere das wait-for-it.sh Skript
+COPY wait-for-it.sh /usr/local/bin/wait-for-it.sh
+RUN chmod +x /usr/local/bin/wait-for-it.sh
+
 # Berechtigungen für den Lager- und Bootstrap-Cacheordner ändern
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 755 /var/www/html/storage /var/www/html/bootstrap/cache
 
+# Veröffentlichen Sie die Sanctum-Konfigurationsdatei
+RUN composer require laravel/sanctum
+RUN php artisan vendor:publish --provider="Laravel\\Sanctum\\SanctumServiceProvider"
+
+# Ändere den aktuellen Benutzer zu www-data
+USER www-data
+
 # Exponiere den Port, auf dem Laravel läuft
 EXPOSE 8000
+EXPOSE 9000
 
-# Starte Laravel mit PHPs eingebautem Server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Starte Laravel mit PHPs eingebautem Server und warte auf die Datenbank
+CMD ["wait-for-it.sh", "db:3306", "--", "php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

@@ -1,13 +1,19 @@
 FROM node:14
 
+# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
+# Kopiere die package.json und package-lock.json Dateien
 COPY package.json package-lock.json ./
 
+# Installiere die Abhängigkeiten
 RUN npm install
 
+# Kopiere den Rest der Anwendung in das Arbeitsverzeichnis
 COPY . .
 
+# Exponiere den Port, auf dem die Anwendung läuft
 EXPOSE 3000
 
+# Starten Sie die Anwendung
 CMD ["npm", "start"]
