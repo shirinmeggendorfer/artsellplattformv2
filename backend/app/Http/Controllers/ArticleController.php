@@ -58,12 +58,24 @@ public function show(Item $item)
     }
     
 
-
- 
-    public function update(Request $request, Item $item)
+    public function userItems()
 {
-    $request->validate([
-        'photo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+    $user = auth()->user();
+    if (!$user) {
+        return response()->json(['error' => 'Unauthenticated'], 401);
+    }
+
+    $items = $user->items()->get();
+    return response()->json($items);
+}
+
+public function update(Request $request, Item $item)
+{
+    $validated = $request->validate([
+        'title' => 'required|max:255',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'photo' => 'image|nullable',
     ]);
 
     if ($request->hasFile('photo')) {
@@ -74,7 +86,6 @@ public function show(Item $item)
         $filenameToStore = $filename . '_' . time() . '.' . $extension;
         $path = $image->storeAs('public/photos', $filenameToStore);
 
-        // Löschen des alten Bildes, falls vorhanden
         if ($item->photo && $item->photo != 'noimage.jpg') {
             Storage::delete('public/photos/' . $item->photo);
         }
@@ -82,20 +93,25 @@ public function show(Item $item)
         $item->photo = $filenameToStore;
     }
 
-    $item->update([
-        'title' => $request->title,
-        'description' => $request->description,
-    ]);
+    $item->update($validated);
 
     return response()->json(['message' => 'Artikel erfolgreich aktualisiert.', 'item' => $item]);
 }
+public function destroy(Item $item)
+{
+    try {
+        // Löschen des Bildes, falls vorhanden
+        if ($item->photo && $item->photo != 'noimage.jpg') {
+            Storage::delete('public/photos/' . $item->photo);
+        }
 
+        $item->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return response()->json(['message' => 'Artikel erfolgreich gelöscht.']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Fehler beim Löschen des Artikels: ' . $e->getMessage()], 500);
     }
+}
+
+
 }

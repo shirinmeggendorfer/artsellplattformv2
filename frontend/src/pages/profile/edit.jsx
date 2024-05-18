@@ -1,6 +1,9 @@
+// frontend/src/pages/profile/edit.jsx
+
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../Components/auth/axios';
 import { confirmAlert } from 'react-confirm-alert';
+import { useNavigate } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 import DeleteUserForm from './delete-user-form';
 import UpdatePasswordForm from './update-password-form';
@@ -10,26 +13,27 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
   const [items, setItems] = useState([]);
   const [profileImage, setProfileImage] = useState(user ? user.profile_image : 'profilepictures/user-2.png');
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) {
-      axios.get('/api/profile')
+      axios.get('/user/items')
         .then(response => {
-          setItems(response.data.items);
-          setProfileImage(response.data.user.profile_image || 'profilepictures/user-2.png');
+          setItems(response.data);
+          setProfileImage(user.profile_image || 'profilepictures/user-2.png');
         })
         .catch(error => {
           setError(error.response ? error.response.data.error : 'Error loading user data');
         });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, user.profile_image]);
 
   const handleImageChange = async (e) => {
     const formData = new FormData();
     formData.append('profile_image', e.target.files[0]);
 
     try {
-      const response = await axios.post('/api/profile/picture', formData, {
+      const response = await axios.post('/profile/picture', formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setProfileImage(response.data.profile_image);
@@ -57,7 +61,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
 
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(`/api/profile/item/${itemId}`);
+      await axios.delete(`/items/${itemId}`);
       setItems(items.filter(item => item.id !== itemId));
     } catch (error) {
       console.error("Error deleting item", error);
@@ -116,7 +120,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
                   <div className="p-2">
                     <h5 className="h3-text text-center">{item.title}</h5>
                     <div className="mt-2">
-                      <a href={`/items/${item.id}/edit`} className="btn btn-primary justify-center content-text-small w-full mb-2">Bearbeiten</a>
+                      <button onClick={() => navigate(`/items/${item.id}/edit`)} className="btn btn-primary justify-center content-text-small w-full mb-2">Bearbeiten</button>
                       <button type="button" onClick={() => confirmDelete(item.id)} className="justify-center content-text-small btn btn-danger w-full">Löschen</button>
                     </div>
                   </div>

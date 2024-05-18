@@ -10,7 +10,7 @@ const Register = ({ login }) => {
   const onSubmit = async data => {
     try {
       await axios.get('http://localhost:8000/sanctum/csrf-cookie', { withCredentials: true });
-      await axios.post('http://localhost:8000/api/register', data, {
+      await axios.post('http://localhost:8000/register', data, {
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         withCredentials: true,
       });

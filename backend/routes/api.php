@@ -38,6 +38,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy']);
     Route::delete('/profile/item/{item}', [ProfileController::class, 'destroyItem']);
     Route::post('/items', [ArticleController::class, 'store']);
-
+    Route::get('/user/items', [ArticleController::class, 'userItems']);
+    Route::put('/items/{item}', [ArticleController::class, 'update']);
+    Route::delete('/items/{item}', [ArticleController::class, 'destroy']);
     
 });

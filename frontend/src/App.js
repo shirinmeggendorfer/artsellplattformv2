@@ -1,8 +1,12 @@
+// frontend/src/App.js
+
 import React, { useState, useEffect } from 'react';
 import axios, { getCsrfToken } from './Components/auth/axios';
 import './index.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ArticleDisplay from './pages/article/ArticleDisplay';
+import ArticleCreate from './pages/article/ArticleCreate';
+import ArticleEdit from './pages/article/ArticleEdit';
 import StartPage from './Components/StartPage';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -29,7 +33,6 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    // Ensure we get CSRF token before any authenticated request
     getCsrfToken().then(() => {
       axios.get('/user')
         .then(response => {
@@ -45,8 +48,8 @@ function App() {
 
   const login = async (data) => {
     try {
-      await getCsrfToken(); // CSRF-Token abrufen
-      await axios.post('/api/login', data);
+      await getCsrfToken();
+      await axios.post('/login', data);
       const response = await axios.get('/user');
       setIsAuthenticated(true);
       setUser(response.data);
@@ -59,7 +62,7 @@ function App() {
 
   const logout = async () => {
     try {
-      await getCsrfToken(); // CSRF-Token abrufen
+      await getCsrfToken();
       await axios.post('/logout');
       setIsAuthenticated(false);
       setUser(null);
@@ -88,7 +91,12 @@ function App() {
           } />
           <Route path="/new-article" element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
-              {/* Artikel erstellen Komponente hier */}
+              <ArticleCreate />
+            </PrivateRoute>
+          } />
+          <Route path="/items/:itemId/edit" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <ArticleEdit />
             </PrivateRoute>
           } />
         </Routes>

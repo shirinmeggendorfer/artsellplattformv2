@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios, { getCsrfToken } from '../../Components/auth/axios';
 
-
-const postItem = async () => {
-  const response = await post('http://localhost:8000/api/items');
-  if (response.ok) {
-    return response.json();
-  }
-  return [];
-};
-
-const ItemCreate = ({ onCreate }) => {
+const ItemCreate = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [photo, setPhoto] = useState(null);
+  const navigate = useNavigate(); // useNavigate Hook
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append('title', title);
     formData.append('description', description);
@@ -24,7 +19,24 @@ const ItemCreate = ({ onCreate }) => {
     if (photo) {
       formData.append('photo', photo);
     }
-    onCreate(formData);
+
+    try {
+      await getCsrfToken(); // CSRF-Token abrufen
+      const response = await axios.post('/items', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 201) {
+        console.log('Artikel erfolgreich erstellt:', response.data);
+        navigate('/'); // Weiterleitung zur Startseite
+      } else {
+        console.error('Fehler beim Erstellen des Artikels:', response);
+      }
+    } catch (error) {
+      console.error('Fehler beim Erstellen des Artikels:', error);
+    }
   };
 
   return (

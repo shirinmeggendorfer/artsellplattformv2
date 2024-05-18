@@ -7,7 +7,7 @@ const UpdateProfileInformationForm = ({ user }) => {
     const formData = new FormData(e.target);
 
     try {
-      await axios.post('/api/profile', formData, {
+      await axios.post('/profile', formData, {
         headers: {
           'Content-Type': 'application/json',
         },

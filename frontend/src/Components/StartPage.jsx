@@ -12,7 +12,7 @@ const fetchItems = async () => {
 };
 
 const searchItems = async (searchQuery) => {
-  const response = await fetch(`http://localhost:8000/api/search?search=${encodeURIComponent(searchQuery)}`);
+  const response = await fetch(`http://localhost:8000/search?search=${encodeURIComponent(searchQuery)}`);
   if (response.ok) {
     return response.json();
   }
