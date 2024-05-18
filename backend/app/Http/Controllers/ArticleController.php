@@ -109,9 +109,10 @@ public function destroy(Item $item)
 
         return response()->json(['message' => 'Artikel erfolgreich gelöscht.']);
     } catch (\Exception $e) {
+        // Loggen Sie den Fehler zur weiteren Analyse
+        \Log::error('Fehler beim Löschen des Artikels: ', ['error' => $e->getMessage()]);
         return response()->json(['error' => 'Fehler beim Löschen des Artikels: ' . $e->getMessage()], 500);
     }
 }
-
 
 }

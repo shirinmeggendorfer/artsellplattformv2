@@ -64,7 +64,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
       await axios.delete(`/items/${itemId}`);
       setItems(items.filter(item => item.id !== itemId));
     } catch (error) {
-      console.error("Error deleting item", error);
+      console.error("Error deleting item", error.response ? error.response.data : error.message);
     }
   };
 
