@@ -6,6 +6,7 @@ const MessageConversation = () => {
   const { userId, articleId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
   const [article, setArticle] = useState(null);
   const [articleOwner, setArticleOwner] = useState(null);
 
@@ -35,19 +36,38 @@ const MessageConversation = () => {
   }, [userId, articleId]);
 
   const handleSendMessage = async () => {
+    if (!newMessage.trim() && selectedImage) {
+      alert('Bitte geben Sie eine Nachricht ein, wenn Sie ein Bild hochladen.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('recipient_id', userId);
+    formData.append('article_id', articleId);
+    formData.append('body', newMessage);
+    if (selectedImage) {
+      formData.append('image', selectedImage);
+    }
+
     try {
-      await axios.post('/messages', {
-        recipient_id: userId,
-        article_id: articleId,
-        body: newMessage,
+      await axios.post('/messages', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
       setNewMessage('');
+      setSelectedImage(null);
+      document.getElementById('fileInput').value = null; // Reset file input
       // Reload messages after sending a new one
       const response = await axios.get(`/conversations/${userId}/${articleId}`);
       setMessages(response.data);
     } catch (error) {
       console.error('Fehler beim Senden der Nachricht:', error);
     }
+  };
+
+  const handleImageChange = (e) => {
+    setSelectedImage(e.target.files[0]);
   };
 
   return (
@@ -68,6 +88,9 @@ const MessageConversation = () => {
           <div key={message.id} className="mb-2 flex justify-between">
             <div className={`content-text flex-grow ${message.sender_id === parseInt(userId) ? 'light-color' : 'accent-color'} p-2 br-messages`}>
               <strong>{message.sender ? message.sender.name : 'Unbekannt'}:</strong> {message.body}
+              {message.image && (
+                <img src={`http://localhost:8000/storage/${message.image}`} alt="Nachricht Bild" className="mt-2 max-w-xs" />
+              )}
             </div>
             <span className="content-text">{new Date(message.created_at).toLocaleTimeString()}</span>
           </div>
@@ -81,6 +104,7 @@ const MessageConversation = () => {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Nachricht schreiben..."
         />
+        <input id="fileInput" type="file" onChange={handleImageChange} className="mt-2" />
         <div className="flex justify-end mt-2">
           <button onClick={handleSendMessage} className="px-5">
             Senden
