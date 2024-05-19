@@ -13,12 +13,13 @@ import EditProfile from './pages/profile/edit';
 import PrivateRoute from './Components/PrivateRoute';
 import MessageCreate from './pages/messages/MessageCreate';
 import MessageIndex from './pages/messages/MessageIndex';
-import MessageConversation from './pages/messages/MessageConversation';  // Korrektur des Imports
+import MessageConversation from './pages/messages/MessageConversation';
+import AdminDashboard from './pages/admin/AdminDashboard';
 
 function Layout({ children, isAuthenticated }) {
   return (
     <div>
-      <header className="base-color-light ">
+      <header className="base-color-light">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           {/* Hier könnte dynamischer Inhalt oder Navigation sein */}
         </div>
@@ -81,34 +82,25 @@ function App() {
           <Route path="/login" element={<Login login={login} />} />
           <Route path="/register" element={<Register login={login} />} />
           <Route path="/profile/edit" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <EditProfile isAuthenticated={isAuthenticated} user={user} logout={logout} />
-            </PrivateRoute>
+            <PrivateRoute isAuthenticated={isAuthenticated} user={user} element={<EditProfile isAuthenticated={isAuthenticated} user={user} logout={logout} />} />
           } />
           <Route path="/messages" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <MessageIndex />
-            </PrivateRoute>
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageIndex />} />
           } />
-             <Route path="/messages/create/:recipientId/:articleId" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <MessageCreate />
-            </PrivateRoute>
+          <Route path="/messages/create/:recipientId/:articleId" element={
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageCreate />} />
           } />
           <Route path="/conversations/:userId/:articleId" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <MessageConversation />
-            </PrivateRoute>
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageConversation />} />
           } />
           <Route path="/new-article" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <ArticleCreate />
-            </PrivateRoute>
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<ArticleCreate />} />
           } />
           <Route path="/items/:itemId/edit" element={
-            <PrivateRoute isAuthenticated={isAuthenticated}>
-              <ArticleEdit />
-            </PrivateRoute>
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<ArticleEdit />} />
+          } />
+          <Route path="/admin/dashboard" element={
+            <PrivateRoute isAuthenticated={isAuthenticated} user={user} requiredRole="admin" element={<AdminDashboard />} />
           } />
         </Routes>
       </Layout>

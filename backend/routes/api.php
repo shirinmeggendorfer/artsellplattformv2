@@ -8,9 +8,22 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AdminController;
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'getUsers']);
+    Route::get('/admin/users/{user}', [AdminController::class, 'getUser']);
+    Route::put('/admin/users/{user}', [AdminController::class, 'updateUser']);
+    Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser']);
+
+    Route::get('/admin/articles/{item}', [AdminController::class, 'getArticle']);
+    Route::put('/admin/articles/{item}', [AdminController::class, 'updateArticle']);
+    Route::delete('/admin/articles/{item}', [AdminController::class, 'destroyArticle']);
+
+    Route::get('/admin/search', [AdminController::class, 'searchUser']);
+});
 
 
-//Route::get('/sanctum/csrf-cookie', [SanctumCsrfCookieController::class, 'show']);
 
 
 Route::middleware('api')->group(function () {

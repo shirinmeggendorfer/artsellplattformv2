@@ -21,23 +21,31 @@ class MessageController extends Controller
         return response()->json(['hasNewMessages' => $hasNewMessages]);
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'recipient_id' => 'required|exists:users,id',
-            'article_id' => 'required|exists:items,id',
-            'body' => 'required',
-        ]);
-    
-        $message = new Message();
-        $message->sender_id = auth()->id();
-        $message->recipient_id = $request->recipient_id;
-        $message->article_id = $request->article_id;
-        $message->body = $request->body;
-        $message->save();
-    
-        return response()->json(['message' => 'Nachricht erfolgreich gesendet.', 'data' => $message], 201);
-    }
+
+   public function store(Request $request)
+   {
+       $request->validate([
+           'recipient_id' => 'required|exists:users,id',
+           'article_id' => 'required|exists:items,id',
+           'body' => 'nullable|string',
+           'image' => 'nullable|image|max:2048', // Maximum 2MB
+       ]);
+   
+       $message = new Message();
+       $message->sender_id = auth()->id();
+       $message->recipient_id = $request->recipient_id;
+       $message->article_id = $request->article_id;
+       $message->body = $request->body;
+   
+       if ($request->hasFile('image')) {
+           $path = $request->file('image')->store('images', 'public');
+           $message->image = $path;
+       }
+   
+       $message->save();
+   
+       return response()->json(['message' => 'Nachricht erfolgreich gesendet.', 'data' => $message], 201);
+   }
     
 
     public function index()

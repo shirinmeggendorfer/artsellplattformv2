@@ -107,6 +107,7 @@ CREATE TABLE `messages` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `image_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_read` tinyint(1) NOT NULL DEFAULT '0',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `messages_sender_id_foreign` (`sender_id`),
   KEY `messages_recipient_id_foreign` (`recipient_id`),
@@ -123,7 +124,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (4,20,6,2,'Rt3t34t','2024-03-26 09:59:30','2024-03-26 10:00:40',NULL,1),(5,6,20,2,'Twet','2024-03-26 09:59:51','2024-03-26 10:00:40','public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg',1),(6,20,6,1,'Etwetwegw','2024-03-26 09:59:54','2024-03-26 10:00:40',NULL,1),(7,20,6,1,'Wggwegwgw','2024-03-26 09:59:56','2024-03-26 10:00:40',NULL,1);
+INSERT INTO `messages` VALUES (4,20,6,2,'Rt3t34t','2024-03-26 09:59:30','2024-03-26 10:00:40',NULL,1,NULL),(5,6,20,2,'Twet','2024-03-26 09:59:51','2024-03-26 10:00:40','public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg',1,NULL),(6,20,6,1,'Etwetwegw','2024-03-26 09:59:54','2024-03-26 10:00:40',NULL,1,NULL),(7,20,6,1,'Wggwegwgw','2024-03-26 09:59:56','2024-03-26 10:00:40',NULL,1,NULL);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
