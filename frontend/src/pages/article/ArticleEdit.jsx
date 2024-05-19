@@ -66,43 +66,46 @@ const ItemEdit = () => {
 
   return (
     <div className="base-color-light app-layout">
-    <div className="py-12">
-      <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
-        <div className="overflow-hidden shadow-sm sm:rounded-lg">
-          <div className="p-6 border-b border-gray-200">
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label htmlFor="title" className="block  content-text font-bold mb-2">Titel:</label>
-                <input id="title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="block w-full p-5 h-10 content-text light-color mb-5" required />
-                {errors.title && <div className="text-red-500">{errors.title}</div>}
-              </div>
+      <div className="py-12">
+        <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
+          <div className="overflow-hidden shadow-sm sm:rounded-lg">
+            <div className="p-6 border-b border-gray-200">
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label htmlFor="title" className="block content-text font-bold mb-2">Titel:</label>
+                  <input id="title" type="text" value={title} onChange={e => setTitle(e.target.value)} className="block w-full p-5 h-10 content-text light-color mb-5" required />
+                  {errors.title && <div className="text-red-500">{errors.title}</div>}
+                </div>
 
-              <div>
-                <label htmlFor="description" className="block  content-text font-bold mb-2">Beschreibung:</label>
-                <textarea id="description" value={description} onChange={e => setDescription(e.target.value)} rows="4" className="block w-full p-5 content-text light-color mb-5" required />
-                {errors.description && <div className="text-red-500">{errors.description}</div>}
-              </div>
+                <div>
+                  <label htmlFor="description" className="block content-text font-bold mb-2">Beschreibung:</label>
+                  <textarea id="description" value={description} onChange={e => setDescription(e.target.value)} rows="4" className="block w-full p-5 content-text light-color mb-5" required />
+                  {errors.description && <div className="text-red-500">{errors.description}</div>}
+                </div>
 
-              <div>
-                <label htmlFor="price" className="block content-text font-bold mb-2">Preis:</label>
-                <input id="price" type="number" step="0.01" value={price} onChange={e => setPrice(e.target.value)} className="block w-full  light-color p-5 h-10 text-l mb-5" required />
-                {errors.price && <div className="text-red-500">{errors.price}</div>}
-              </div>
+                <div>
+                  <label htmlFor="price" className="block content-text font-bold mb-2">Preis:</label>
+                  <input id="price" type="number" step="0.01" value={price} onChange={e => setPrice(e.target.value)} className="block w-full light-color p-5 h-10 text-l mb-5" required />
+                  {errors.price && <div className="text-red-500">{errors.price}</div>}
+                </div>
 
-              <div>
-                <label htmlFor="photo" className="block content-text font-bold mb-2">Neues Bild hochladen:</label>
-                <input id="photo" type="file" onChange={e => setPhoto(e.target.files[0])} className="block content-text-small    mt-1 w-full" />
-                {errors.photo && <div className="text-red-500">{errors.photo}</div>}
-              </div>
+                <div>
+                  <label htmlFor="photo" className="block content-text font-bold mb-2">Neues Bild hochladen:</label>
+                  <input id="photo" type="file" onChange={e => setPhoto(e.target.files[0])} className="block content-text-small mt-1 w-full" />
+                  {errors.photo && <div className="text-red-500">{errors.photo}</div>}
+                  {item.photo && (
+                    <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt="Aktuelles Bild" className="mt-4" />
+                  )}
+                </div>
 
-              <div className="flex items-center justify-end mt-4">
-                <button type="submit" className="content-text  light-color br-buttons py-2 px-4">Speichern</button>
-              </div>
-            </form>
+                <div className="flex items-center justify-end mt-4">
+                  <button type="submit" className="content-text light-color br-buttons py-2 px-4">Speichern</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
