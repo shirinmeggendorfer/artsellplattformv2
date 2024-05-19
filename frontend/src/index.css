@@ -1260,7 +1260,7 @@ video {
     color: #F5B9B9;
   }
 /* Basisfarbe Lightmode */
-.light\:base-color-light {
+base-color-light {
     --tw-bg-opacity: 1;
     background-color: #FEDCDB; 
 }

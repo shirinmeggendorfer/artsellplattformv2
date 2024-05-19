@@ -7,7 +7,7 @@
 
 
 
-<div class="light:base-color-light fixed top-0 z-50 w-full mb-2 shadow">
+<div class="base-color-light fixed top-0 z-50 w-full mb-2 shadow">
         <!-- Fixed Suchleiste -->
         <form id="searchForm" action="{{ route('startPage') }}" method="GET" class="base-color-light flex justify-center pt-5 px-5">
             <x-text-input type="text" name="search" id="searchInput" placeholder="Suche..." class="form-control w-full px-5 h-12 content-text light-color dark-placeholder" value="{{ request('search') }}"/>

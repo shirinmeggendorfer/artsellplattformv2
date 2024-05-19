@@ -58,28 +58,29 @@ class MessageController extends Controller
         return response()->json($message);
     }
 
-    public function conversation(User $user, $articleId)
+    public function conversation($userId, $articleId)
     {
-        $messages = Message::where(function ($query) use ($user, $articleId) {
-                                $query->where('sender_id', auth()->id())
-                                      ->where('recipient_id', $user->id)
-                                      ->where('article_id', $articleId);
-                            })
-                            ->orWhere(function ($query) use ($user, $articleId) {
-                                $query->where('sender_id', $user->id)
-                                      ->where('recipient_id', auth()->id())
-                                      ->where('article_id', $articleId);
-                            })
-                            ->orderBy('created_at', 'asc')
-                            ->get();
-
+        $currentUserId = auth()->id();
+    
+        $messages = Message::with(['sender', 'recipient', 'article.user'])  // Laden der Beziehungen
+            ->where(function ($query) use ($currentUserId, $userId, $articleId) {
+                $query->where('sender_id', $currentUserId)
+                      ->where('recipient_id', $userId)
+                      ->where('article_id', $articleId);
+            })->orWhere(function ($query) use ($currentUserId, $userId, $articleId) {
+                $query->where('sender_id', $userId)
+                      ->where('recipient_id', $currentUserId)
+                      ->where('article_id', $articleId);
+            })->orderBy('created_at', 'asc')->get();
+    
+        // Mark all messages as read
         foreach ($messages as $message) {
-            if ($message->recipient_id === auth()->id() && !$message->is_read) {
+            if ($message->recipient_id == $currentUserId && !$message->is_read) {
                 $message->is_read = true;
                 $message->save();
             }
         }
-
+    
         return response()->json($messages);
     }
 }

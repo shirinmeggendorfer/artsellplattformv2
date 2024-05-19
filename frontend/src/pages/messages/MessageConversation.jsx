@@ -6,8 +6,21 @@ const MessageConversation = () => {
   const { userId, articleId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [article, setArticle] = useState(null);
+  const [articleOwner, setArticleOwner] = useState(null);
 
   useEffect(() => {
+    const fetchArticle = async () => {
+      try {
+        const response = await axios.get(`/items/${articleId}`);
+        const fetchedArticle = response.data;
+        setArticle(fetchedArticle);
+        setArticleOwner(fetchedArticle.user);
+      } catch (error) {
+        console.error('Fehler beim Laden des Artikels:', error);
+      }
+    };
+
     const fetchMessages = async () => {
       try {
         const response = await axios.get(`/conversations/${userId}/${articleId}`);
@@ -17,6 +30,7 @@ const MessageConversation = () => {
       }
     };
 
+    fetchArticle();
     fetchMessages();
   }, [userId, articleId]);
 
@@ -37,7 +51,18 @@ const MessageConversation = () => {
   };
 
   return (
-    <div className="light:base-color-light max-h-full h-screen">
+    <div className="base-color-light max-h-full h-screen">
+      {article && articleOwner ? (
+        <div className="flex items-center p-4 border-b">
+          <img src={`http://localhost:8000/storage/photos/${article.photo}`} alt={article.title} className="w-16 h-16 object-cover rounded-full mr-4" />
+          <div>
+            <h2 className="text-xl font-bold">{article.title}</h2>
+            <p className="text-gray-600">von {articleOwner.name}</p>
+          </div>
+        </div>
+      ) : (
+        <div>Lade Artikelinformationen...</div>
+      )}
       <div className="px-4 py-5 sm:p-6">
         {messages.map((message) => (
           <div key={message.id} className="mb-2 flex justify-between">

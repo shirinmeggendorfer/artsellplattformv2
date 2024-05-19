@@ -99,7 +99,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
               <button className="w-full flex items-center justify-between px-4 py-2 text-left h3-text light-color hover:accent-colour rounded-md">
                 <span>Profileinstellungen</span>
               </button>
-              <div className="p-4 mt-2 light:base-color-light rounded-lg">
+              <div className="p-4 mt-2 base-color-light rounded-lg">
                 <UpdateProfileInformationForm user={user} />
                 <UpdatePasswordForm />
                 <DeleteUserForm />
@@ -132,7 +132,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
           </div>
         </div>
 
-        <div className="p-4 sm:p-8 light:base-color-light">
+        <div className="p-4 sm:p-8 base-color-light">
           <div className="max-w-xl">
             <button onClick={logout} className="x-button">Logout</button>
           </div>

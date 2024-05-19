@@ -79,7 +79,7 @@ const UpdateProfileInformationForm = ({ user }) => {
           <button type="submit" className="x-button">Speichern</button>
           {user.email_verified_at === null && (
             <div>
-              <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
+              <p className="text-sm mt-2 text-gray-800 ">
                 Ihre E-Mail Adresse ist nicht verifiziert.
               </p>
               <button form="send-verification" className="x-button">

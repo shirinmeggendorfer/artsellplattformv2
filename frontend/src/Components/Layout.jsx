@@ -3,7 +3,7 @@ import '../index.css'; // assuming your CSS is compiled into app.css
 
 const Layout = ({ header, children }) => {
   return (
-    <div className="light:base-color-light dark:base-color-dark font-sans antialiased">
+    <div className="base-color-light font-sans antialiased">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +23,7 @@ const Layout = ({ header, children }) => {
 
       {/* Page Heading */}
       {header && (
-        <header className="light:base-color-light dark:base-color-dark">
+        <header className="base-color-light">
           <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             {header}
           </div>

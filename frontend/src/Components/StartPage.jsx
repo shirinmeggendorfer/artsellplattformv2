@@ -47,8 +47,8 @@ function StartPage() {
 
   return (
     <Layout header={header}>
-      <div className="light:base-color-light app-layout">
-        <div className="light:base-color-light fixed top-0 z-50 w-full mb-2 shadow">
+      <div className="base-color-light app-layout">
+        <div className="base-color-light fixed top-0 z-50 w-full mb-2 shadow">
           <form id="searchForm" onSubmit={handleSubmit} className="base-color-light flex justify-center pt-5 px-5">
             <input
               type="text"

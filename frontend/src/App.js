@@ -18,7 +18,7 @@ import MessageConversation from './pages/messages/MessageConversation';  // Korr
 function Layout({ children, isAuthenticated }) {
   return (
     <div>
-      <header className="light:base-color-light dark:base-color-dark">
+      <header className="base-color-light ">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           {/* Hier könnte dynamischer Inhalt oder Navigation sein */}
         </div>

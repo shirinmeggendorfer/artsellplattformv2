@@ -77,7 +77,7 @@ const UpdatePasswordForm = () => {
         <div className="flex items-center gap-4">
           <button type="submit" className="x-button">Speichern</button>
           {status === 'password-updated' && (
-            <p className="text-sm text-gray-600 dark:text-gray-400">Speichern.</p>
+            <p className="text-sm text-gray-600 ">Speichern.</p>
           )}
         </div>
       </form>

@@ -40,7 +40,7 @@ function ArticleDisplay({ isAuthenticated }) {
   };
 
   return (
-    <div className="light:base-color-light fixed top-0 z-50 w-full mb-2 shadow">
+    <div className="base-color-light fixed top-0 z-50 w-full mb-2 shadow">
       <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-6">
         <div className="sm:rounded-lg">
           <div className="px-4 py-5 sm:px-6">
