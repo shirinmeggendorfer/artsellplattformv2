@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
 use App\Models\User;
 use App\Models\Item;
-
 
 class AdminController extends Controller
 {
@@ -44,8 +42,6 @@ class AdminController extends Controller
         $items = $user->items;
         return response()->json($items);
     }
-    
-
 
     public function destroyUser(User $user)
     {

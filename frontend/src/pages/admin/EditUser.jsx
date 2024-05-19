@@ -61,6 +61,21 @@ const EditUser = () => {
     }
   };
 
+  const handleItemEdit = (itemId) => {
+    navigate(`/admin/items/${itemId}/edit`);
+  };
+
+  const handleItemDelete = async (itemId) => {
+    if (window.confirm('Sind Sie sicher, dass Sie diesen Artikel löschen möchten?')) {
+      try {
+        await axios.delete(`/admin/items/${itemId}`);
+        setItems(items.filter(item => item.id !== itemId));
+      } catch (error) {
+        console.error('Fehler beim Löschen des Artikels:', error);
+      }
+    }
+  };
+
   if (!user) {
     return <div>Lade Benutzerinformationen...</div>;
   }
@@ -70,6 +85,9 @@ const EditUser = () => {
       <div className="max-w-4xl mx-auto sm:px-6 lg:px-8">
         <div className="overflow-hidden shadow-sm sm:rounded-lg">
           <div className="p-6">
+            <button onClick={() => navigate('/admin/dashboard')} className="px-4 py-2 mb-4 bg-gray-200 hover:bg-gray-300 rounded-md">
+              Zurück zum Dashboard
+            </button>
             <form onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="name" className="block font-medium text-sm text-gray-700">
@@ -145,7 +163,22 @@ const EditUser = () => {
                     items.map((item) => (
                       <div key={item.id} className="p-4 border rounded-md">
                         <h5 className="h5-text">{item.title}</h5>
+                        <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} className="w-16 h-16 object-cover rounded-full mr-4" />
                         <p>{item.description}</p>
+                        <div className="flex justify-end space-x-4">
+                          <button
+                            onClick={() => handleItemEdit(item.id)}
+                            className="px-4 py-2 text-blue-500 hover:text-blue-700"
+                          >
+                            Bearbeiten
+                          </button>
+                          <button
+                            onClick={() => handleItemDelete(item.id)}
+                            className="px-4 py-2 text-red-500 hover:text-red-700"
+                          >
+                            Löschen
+                          </button>
+                        </div>
                       </div>
                     ))
                   ) : (
