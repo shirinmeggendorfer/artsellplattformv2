@@ -106,7 +106,7 @@ const MessageConversation = () => {
         />
         <input id="fileInput" type="file" onChange={handleImageChange} className="mt-2" />
         <div className="flex justify-end mt-2">
-          <button onClick={handleSendMessage} className="px-5">
+          <button onClick={handleSendMessage} className="px-5 content-text py-2 px-4 br-buttons light-color">
             Senden
           </button>
         </div>

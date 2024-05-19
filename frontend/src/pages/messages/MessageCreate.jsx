@@ -25,7 +25,7 @@ const MessageCreate = () => {
 
   return (
     <div className="text-left mb-2 w-full px-5">
-      <h2 className="h2-text leading-tight">Write Message</h2>
+      <h2 className="h2-text leading-tight py-5">Write Message</h2>
       <form onSubmit={handleSubmit}>
         <textarea
           className="form-control light-color content-text w-full p-4"
@@ -35,7 +35,7 @@ const MessageCreate = () => {
           required
         />
         <div className="flex justify-end mt-4">
-          <button type="submit" className="px-5">
+          <button type="submit" className=" content-text py-2 px-4 br-buttons light-color">
             Senden
           </button>
         </div>

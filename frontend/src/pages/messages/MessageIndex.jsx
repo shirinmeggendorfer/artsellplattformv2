@@ -43,7 +43,7 @@ const MessageIndex = () => {
 
   return (
     <div className="max-w-4xl mx-auto py-6 sm:px-6 lg:px-8">
-      <h2 className="h2-text">Messages</h2>
+      <h2 className="py-5 h2-text">Messages</h2>
       <ul className="divide-y divide-light-color">
         {conversations.map((conversation) => {
           const otherUser = getOtherUser(conversation, parseInt(conversation.sender_id));

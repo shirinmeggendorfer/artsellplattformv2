@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../Components/auth/axios';
 import { Link } from 'react-router-dom';
+import '../../index.css';
+
 
 const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -30,6 +32,8 @@ const AdminDashboard = () => {
   };
 
   return (
+ 
+    <div className="base-color-light app-layout">
     <div className="py-4 min-h-screen">
       <div className="max-w-md mx-auto px-4">
         <div className="light:base-color-light">
@@ -64,6 +68,8 @@ const AdminDashboard = () => {
         </div>
       </div>
     </div>
+    </div>
+ 
   );
 };
 

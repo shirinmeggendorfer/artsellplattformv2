@@ -33,40 +33,40 @@ const UpdatePasswordForm = () => {
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-6">
         <div>
-          <label htmlFor="update_password_current_password" className="x-input-label">Current Password</label>
+          <label htmlFor="update_password_current_password" className="x-input-label content-text">Current Password</label>
           <input
             id="update_password_current_password"
             name="current_password"
             type="password"
-            className="block w-full p-5 h-10 text-l mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             value={currentPassword}
             onChange={(e) => setCurrentPassword(e.target.value)}
             autoComplete="current-password"
           />
-          {errors.current_password && <div className="mt-2 x-input-error">{errors.current_password}</div>}
+          {errors.current_password && <div className="mt-2 x-input-error content-text">{errors.current_password}</div>}
         </div>
 
         <div>
-          <label htmlFor="update_password_password" className="x-input-label">New Password</label>
+          <label htmlFor="update_password_password" className="x-input-label content-text">New Password</label>
           <input
             id="update_password_password"
             name="password"
             type="password"
-            className="block w-full p-5 h-10 text-l mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             autoComplete="new-password"
           />
-          {errors.password && <div className="mt-2 x-input-error">{errors.password}</div>}
+          {errors.password && <div className="mt-2 x-input-error content-text">{errors.password}</div>}
         </div>
 
         <div>
-          <label htmlFor="update_password_password_confirmation" className="x-input-label">Confirm Password</label>
+          <label htmlFor="update_password_password_confirmation" className="input-label content-text">Confirm Password</label>
           <input
             id="update_password_password_confirmation"
             name="password_confirmation"
             type="password"
-            className="block w-full p-5 h-10 text-l mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             value={passwordConfirmation}
             onChange={(e) => setPasswordConfirmation(e.target.value)}
             autoComplete="new-password"
@@ -75,12 +75,13 @@ const UpdatePasswordForm = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <button type="submit" className="x-button">Speichern</button>
+          <button type="submit" className="button content-text py-2 px-4 br-buttons light-color">Speichern</button>
           {status === 'password-updated' && (
             <p className="text-sm text-gray-600 ">Speichern.</p>
           )}
         </div>
       </form>
+      <div className="py-12"></div>
     </section>
   );
 };

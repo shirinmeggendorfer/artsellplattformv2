@@ -8,6 +8,10 @@ import ArticleEdit from './pages/article/ArticleEdit';
 import StartPage from './Components/StartPage';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import ConfirmPassword from './pages/auth/ConfirmPassword';
+import ForgotPassword from './pages/auth/ForgotPassword';
+import ResetPassword from './pages/auth/ResetPassword';
+import VerifyEmail from './pages/auth/VerifyEmail';
 import Navbar from './Components/NavBar';
 import EditProfile from './pages/profile/edit';
 import PrivateRoute from './Components/PrivateRoute';
@@ -75,6 +79,16 @@ function App() {
     }
   };
 
+  const sendPasswordResetEmail = async (data) => {
+    try {
+      await axios.post('/forgot-password', data);
+      // handle success
+    } catch (error) {
+      console.error('Password reset email error:', error);
+      // handle errors
+    }
+  };
+
   return (
     <Router>
       <Layout isAuthenticated={isAuthenticated}>
@@ -83,6 +97,10 @@ function App() {
           <Route path="/items/:itemId" element={<ArticleDisplay isAuthenticated={isAuthenticated} />} />
           <Route path="/login" element={<Login login={login} />} />
           <Route path="/register" element={<Register login={login} />} />
+          <Route path="/password/confirm" element={<ConfirmPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword sendPasswordResetEmail={sendPasswordResetEmail} />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/profile/edit" element={
             <PrivateRoute isAuthenticated={isAuthenticated} user={user} element={<EditProfile isAuthenticated={isAuthenticated} user={user} logout={logout} />} />
           } />

@@ -41,6 +41,10 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 php artisan make:controller AdminController --api
 
+
+docker exec -it -e XDG_CONFIG_HOME=/tmp f5f81661dad6 php artisan tinker
+
+USER::all();
 php artisan config:clear
 php artisan route:clear
 php artisan cache:clear

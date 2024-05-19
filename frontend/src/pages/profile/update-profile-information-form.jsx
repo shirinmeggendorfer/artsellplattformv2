@@ -32,13 +32,13 @@ const UpdateProfileInformationForm = ({ user }) => {
 
       <form onSubmit={handleFormSubmit} className="mt-6 space-y-6">
         <div>
-          <label htmlFor="name" className="x-input-label">Name</label>
+          <label htmlFor="name" className=" content-text  ">Name</label>
           <div className="mb-2"></div>
           <input
             id="name"
             name="name"
             type="text"
-            className="block w-full p-5 h-10 content-text mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             defaultValue={user.name}
             required
             autoFocus
@@ -47,13 +47,13 @@ const UpdateProfileInformationForm = ({ user }) => {
         </div>
 
         <div>
-          <label htmlFor="surname" className="x-input-label">Nachname</label>
+          <label htmlFor="surname" className=" content-text ">Nachname</label>
           <div className="mb-2"></div>
           <input
             id="surname"
             name="surname"
             type="text"
-            className="block w-full p-5 h-10 text-l mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             defaultValue={user.surname}
             required
             autoFocus
@@ -62,13 +62,13 @@ const UpdateProfileInformationForm = ({ user }) => {
         </div>
 
         <div>
-          <label htmlFor="email" className="x-input-label">Email</label>
+          <label htmlFor="email" className=" conten-text">Email</label>
           <div className="mb-2"></div>
           <input
             id="email"
             name="email"
             type="email"
-            className="block w-full p-5 h-10 text-l mb-5"
+            className="block w-full p-5 h-10 content-text light-color mb-5"
             defaultValue={user.email}
             required
             autoComplete="username"
@@ -76,17 +76,8 @@ const UpdateProfileInformationForm = ({ user }) => {
         </div>
 
         <div className="flex items-center gap-4">
-          <button type="submit" className="x-button">Speichern</button>
-          {user.email_verified_at === null && (
-            <div>
-              <p className="text-sm mt-2 text-gray-800 ">
-                Ihre E-Mail Adresse ist nicht verifiziert.
-              </p>
-              <button form="send-verification" className="x-button">
-                Klicken Sie hier, um die Bestätigungs-E-Mail erneut zu senden.
-              </button>
-            </div>
-          )}
+          <button type="submit" className="button content-text py-2 px-4 br-buttons light-color">Speichern</button>
+          <div className="py-12"></div>
         </div>
       </form>
     </section>

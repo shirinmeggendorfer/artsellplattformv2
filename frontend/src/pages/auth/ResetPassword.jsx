@@ -1,37 +1,33 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useNavigate, Link } from 'react-router-dom';
 import '../../index.css';
 
-const Login = ({ login }) => {
+const ResetPassword = ({ resetPassword, token }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const navigate = useNavigate();
 
   const onSubmit = async data => {
     try {
-      await login(data);
-      navigate('/'); // Zur Startseite umleiten
+      await resetPassword({ ...data, token });
+      // handle success
     } catch (error) {
-      console.error('Login error:', error);
-      // handle login errors
+      console.error('Reset password error:', error);
+      // handle errors
     }
   };
 
   return (
     <div className="base-color-light min-h-screen flex items-center justify-center">
       <div className="px-5 py-12">
-        <div className="text-center mb-10">
-          <h1 className="h1-text font-bold">Login</h1>
-        </div>
-
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <input type="hidden" name="token" value={token} />
+
           <div>
             <label htmlFor="email" className="block content-text font-bold mb-2">Email:</label>
             <input
               id="email"
               type="email"
               {...register('email', { required: true })}
-              className="block w-full p-5 h-10 content-text light-color mb-5"
+              className="block w-full p-5 h-10 h2-text light-color mb-5"
               required
             />
             {errors.email && <span className="text-red-500">Email is required</span>}
@@ -43,25 +39,31 @@ const Login = ({ login }) => {
               id="password"
               type="password"
               {...register('password', { required: true })}
-              className="block w-full p-5 h-10 content-text light-color mb-5"
+              className="block w-full p-5 h-10 h2-text light-color mb-5"
               required
             />
             {errors.password && <span className="text-red-500">Password is required</span>}
           </div>
 
+          <div>
+            <label htmlFor="password_confirmation" className="block content-text font-bold mb-2">Confirm Password:</label>
+            <input
+              id="password_confirmation"
+              type="password"
+              {...register('password_confirmation', { required: true })}
+              className="block w-full p-5 h-10 h2-text light-color mb-5"
+              required
+            />
+            {errors.password_confirmation && <span className="text-red-500">Password confirmation is required</span>}
+          </div>
+
           <div className="flex justify-end">
-            <button type="submit" className="content-text py-2 px-4 br-buttons light-color">Login</button>
+            <button type="submit" className="content-text py-2 px-4 br-buttons light-color">Reset Password</button>
           </div>
         </form>
-
-        
-        <div className="mt-2 text-center">
-          <span className="content-text">Not registered yet? </span>
-          <Link to="/register" className="text-blue-500 underline">Register here</Link>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ResetPassword;

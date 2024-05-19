@@ -1226,6 +1226,14 @@ video {
     font-family: 'Sans-bold';
     color: var(--text-color);
   }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #FEDCDB; /* Sicherstellen, dass der ganze Hintergrund die base-color-light-Farbe hat */
+  }
+  
 /* Akzentfarbe */
 .accent-color {
     background-color:#FEE14E;
@@ -1260,9 +1268,9 @@ video {
     color: #F5B9B9;
   }
 /* Basisfarbe Lightmode */
-base-color-light {
-    --tw-bg-opacity: 1;
-    background-color: #FEDCDB; 
+.base-color-light {
+  --tw-bg-opacity: 1;
+  background-color: #FEDCDB; 
 }
 .light\:text-base-color-light {
     --tw-text-opacity: 1;
@@ -1292,6 +1300,16 @@ base-color-light {
     background-color: #FEE14E; /* Akzentfarbe */
     
 }
+
+/* index.css */
+.item-image {
+  width: 90%; /* Festgelegte Breite */
+  height: 300px; /* Festgelegte Höhe */
+  object-fit: cover; /* Damit das Bild innerhalb der festgelegten Größe bleibt und nicht verzerrt wird */
+}
+
+
+
 .br-cards {
     border-radius: 10px;
   }
