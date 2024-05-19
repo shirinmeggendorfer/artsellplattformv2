@@ -123,7 +123,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (4,20,6,8,'Rt3t34t','2024-03-26 09:59:30','2024-03-26 10:00:40',NULL,1),(5,20,6,8,'Twet','2024-03-26 09:59:51','2024-03-26 10:00:40','public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg',1),(6,20,6,8,'Etwetwegw','2024-03-26 09:59:54','2024-03-26 10:00:40',NULL,1),(7,20,6,8,'Wggwegwgw','2024-03-26 09:59:56','2024-03-26 10:00:40',NULL,1);
+INSERT INTO `messages` VALUES (4,20,6,2,'Rt3t34t','2024-03-26 09:59:30','2024-03-26 10:00:40',NULL,1),(5,6,20,2,'Twet','2024-03-26 09:59:51','2024-03-26 10:00:40','public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg',1),(6,20,6,1,'Etwetwegw','2024-03-26 09:59:54','2024-03-26 10:00:40',NULL,1),(7,20,6,1,'Wggwegwgw','2024-03-26 09:59:56','2024-03-26 10:00:40',NULL,1);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -41,6 +41,9 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 php artisan make:controller ItemController --api
 
+php artisan config:clear
+php artisan route:clear
+php artisan cache:clear
 
 
 ## Learn More

@@ -13,6 +13,7 @@ import EditProfile from './pages/profile/edit';
 import PrivateRoute from './Components/PrivateRoute';
 import MessageCreate from './pages/messages/MessageCreate';
 import MessageIndex from './pages/messages/MessageIndex';
+import MessageConversation from './pages/messages/MessageConversation';  // Korrektur des Imports
 
 function Layout({ children, isAuthenticated }) {
   return (
@@ -89,9 +90,14 @@ function App() {
               <MessageIndex />
             </PrivateRoute>
           } />
-          <Route path="/messages/create/:recipientId/:articleId" element={
+             <Route path="/messages/create/:recipientId/:articleId" element={
             <PrivateRoute isAuthenticated={isAuthenticated}>
               <MessageCreate />
+            </PrivateRoute>
+          } />
+          <Route path="/conversations/:userId/:articleId" element={
+            <PrivateRoute isAuthenticated={isAuthenticated}>
+              <MessageConversation />
             </PrivateRoute>
           } />
           <Route path="/new-article" element={

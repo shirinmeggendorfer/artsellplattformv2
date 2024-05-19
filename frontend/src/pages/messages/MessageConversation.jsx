@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from '../../Components/auth/axios';
 import { useParams } from 'react-router-dom';
 
 const MessageConversation = () => {
@@ -42,7 +42,7 @@ const MessageConversation = () => {
         {messages.map((message) => (
           <div key={message.id} className="mb-2 flex justify-between">
             <div className={`content-text flex-grow ${message.sender_id === parseInt(userId) ? 'light-color' : 'accent-color'} p-2 br-messages`}>
-              <strong>{message.sender_id === parseInt(userId) ? 'Du' : message.sender.name}:</strong> {message.body}
+              <strong>{message.sender ? message.sender.name : 'Unbekannt'}:</strong> {message.body}
             </div>
             <span className="content-text">{new Date(message.created_at).toLocaleTimeString()}</span>
           </div>

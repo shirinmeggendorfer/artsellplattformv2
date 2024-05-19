@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MessageController;
 
 
 //Route::get('/sanctum/csrf-cookie', [SanctumCsrfCookieController::class, 'show']);
@@ -41,11 +42,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user/items', [ArticleController::class, 'userItems']);
     Route::put('/items/{item}', [ArticleController::class, 'update']);
     Route::delete('/items/{item}', [ArticleController::class, 'destroy']);
-    
 });
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/messages', [MessageController::class, 'index']);
-    Route::post('/messages', [MessageController::class, 'store']);
+    Route::post('/messages', [MessageController::class, 'store']); 
     Route::get('/messages/{id}', [MessageController::class, 'show']);
     Route::get('/conversations/{user}/{articleId}', [MessageController::class, 'conversation']);
 });
+
