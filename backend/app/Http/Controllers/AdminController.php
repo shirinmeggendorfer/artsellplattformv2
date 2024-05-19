@@ -39,6 +39,14 @@ class AdminController extends Controller
         return response()->json(['message' => 'Benutzer erfolgreich aktualisiert.', 'user' => $user]);
     }
 
+    public function getUserItems(User $user)
+    {
+        $items = $user->items;
+        return response()->json($items);
+    }
+    
+
+
     public function destroyUser(User $user)
     {
         $user->items()->delete();

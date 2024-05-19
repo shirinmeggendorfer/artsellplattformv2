@@ -1,28 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import axios from '../../Components/auth/axios';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const EditUser = () => {
   const { userId } = useParams();
-  const history = useHistory();
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [items, setItems] = useState([]);
+  const [openItems, setOpenItems] = useState(false);
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`/admin/users/${userId}`);
+        setUser(response.data);
+      } catch (error) {
+        console.error('Fehler beim Laden des Benutzers:', error);
+      }
+    };
 
-  const fetchUser = async () => {
-    try {
-      const response = await axios.get(`/admin/users/${userId}`);
-      setUser(response.data);
-    } catch (error) {
-      console.error('Fehler beim Laden des Benutzers:', error);
-    }
-  };
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get(`/admin/users/${userId}/items`);
+        setItems(response.data);
+      } catch (error) {
+        console.error('Fehler beim Laden der Artikel:', error);
+      }
+    };
+
+    fetchUser();
+    fetchItems();
+  }, [userId]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +44,7 @@ const EditUser = () => {
     e.preventDefault();
     try {
       await axios.put(`/admin/users/${userId}`, user);
-      history.push('/admin/dashboard');
+      navigate('/admin/dashboard');
     } catch (error) {
       console.error('Fehler beim Aktualisieren des Benutzers:', error);
     }
@@ -46,12 +54,16 @@ const EditUser = () => {
     if (window.confirm('Sind Sie sicher, dass Sie diesen Benutzer löschen möchten?')) {
       try {
         await axios.delete(`/admin/users/${userId}`);
-        history.push('/admin/dashboard');
+        navigate('/admin/dashboard');
       } catch (error) {
         console.error('Fehler beim Löschen des Benutzers:', error);
       }
     }
   };
+
+  if (!user) {
+    return <div>Lade Benutzerinformationen...</div>;
+  }
 
   return (
     <div className="py-12">
@@ -112,6 +124,36 @@ const EditUser = () => {
                 </button>
               </div>
             </form>
+
+            <div className="mt-6">
+              <button onClick={() => setOpenItems(!openItems)} className="w-full flex items-center justify-between px-4 py-2 text-left content-text hover:accent-color">
+                <span>Artikel anzeigen</span>
+                {openItems ? (
+                  <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                  </svg>
+                ) : (
+                  <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                )}
+              </button>
+
+              {openItems && (
+                <div className="mt-4 space-y-4">
+                  {items.length > 0 ? (
+                    items.map((item) => (
+                      <div key={item.id} className="p-4 border rounded-md">
+                        <h5 className="h5-text">{item.title}</h5>
+                        <p>{item.description}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>Keine Artikel gefunden.</p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

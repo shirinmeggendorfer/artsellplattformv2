@@ -15,6 +15,7 @@ import MessageCreate from './pages/messages/MessageCreate';
 import MessageIndex from './pages/messages/MessageIndex';
 import MessageConversation from './pages/messages/MessageConversation';
 import AdminDashboard from './pages/admin/AdminDashboard';
+import EditUser from './pages/admin/EditUser';  // Importiere die EditUser-Komponente
 
 function Layout({ children, isAuthenticated }) {
   return (
@@ -101,6 +102,9 @@ function App() {
           } />
           <Route path="/admin/dashboard" element={
             <PrivateRoute isAuthenticated={isAuthenticated} user={user} requiredRole="admin" element={<AdminDashboard />} />
+          } />
+          <Route path="/admin/users/:userId" element={
+            <PrivateRoute isAuthenticated={isAuthenticated} user={user} requiredRole="admin" element={<EditUser />} />
           } />
         </Routes>
       </Layout>

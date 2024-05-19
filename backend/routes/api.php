@@ -15,11 +15,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/admin/users/{user}', [AdminController::class, 'getUser']);
     Route::put('/admin/users/{user}', [AdminController::class, 'updateUser']);
     Route::delete('/admin/users/{user}', [AdminController::class, 'destroyUser']);
-
-    Route::get('/admin/articles/{item}', [AdminController::class, 'getArticle']);
-    Route::put('/admin/articles/{item}', [AdminController::class, 'updateArticle']);
-    Route::delete('/admin/articles/{item}', [AdminController::class, 'destroyArticle']);
-
+    Route::get('/admin/users/{user}/items', [AdminController::class, 'getUserItems']); // Neue Route zum Laden der Items eines Benutzers
     Route::get('/admin/search', [AdminController::class, 'searchUser']);
 });
 
