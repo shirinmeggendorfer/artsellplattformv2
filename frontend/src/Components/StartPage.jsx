@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from './Layout'; // Importieren der Layout-Komponente
+import Layout from './Layout';
 import NavBar from './NavBar';
 import '../index.css';
 
@@ -12,7 +12,7 @@ const fetchItems = async () => {
 };
 
 const searchItems = async (searchQuery) => {
-  const response = await fetch(`http://localhost:8000/search?search=${encodeURIComponent(searchQuery)}`);
+  const response = await fetch(`http://localhost:8000/api/search?search=${encodeURIComponent(searchQuery)}`);
   if (response.ok) {
     return response.json();
   }
@@ -24,11 +24,17 @@ function StartPage() {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    if (search) {
-      searchItems(search).then(setItems);
-    } else {
-      fetchItems().then(setItems);
-    }
+    const fetchData = async () => {
+      if (search) {
+        const results = await searchItems(search);
+        setItems(results);
+      } else {
+        const items = await fetchItems();
+        setItems(items);
+      }
+    };
+
+    fetchData();
   }, [search]);
 
   const handleSubmit = async (event) => {
@@ -65,7 +71,7 @@ function StartPage() {
           </form>
         </div>
         <div className="pt-16">
-          <h2 className="h2-text text-left mt-4 mb-6 px-5">zuletzt hochgeladen</h2>
+          <h2 className="h2-text text-left mt-4 mb-6 px-5">Zuletzt hochgeladen</h2>
           {items.map(item => (
             <a key={item.id} href={`/items/${item.id}`} className="px-5 w-full block text-black no-underline">
               <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} />
@@ -77,7 +83,7 @@ function StartPage() {
               </div>
             </a>
           ))}
-          <div className='mb-20'> </div>
+          <div className="mb-20"></div>
         </div>
         <NavBar />
       </div>
