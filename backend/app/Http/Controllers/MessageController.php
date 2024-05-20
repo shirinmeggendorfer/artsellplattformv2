@@ -34,6 +34,7 @@ class MessageController extends Controller
         $message = new Message();
         $message->sender_id = auth()->id();
         $message->recipient_id = $request->recipient_id;
+        $message->is_read = false;
         $message->article_id = $request->article_id;
         $message->body = $request->body;
     

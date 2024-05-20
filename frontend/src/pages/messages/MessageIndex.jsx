@@ -22,8 +22,8 @@ const MessageIndex = () => {
       return acc;
     }, {});
 
-    // Return all messages grouped by user and article
-    return Object.values(grouped).map(group => group);
+    // Sort messages within each group by creation date and return only the latest message in each group
+    return Object.values(grouped).map(group => group.sort((a, b) => new Date(b.created_at) - new Date(a.created_at))[0]);
   }, [user]);
 
   useEffect(() => {
@@ -62,31 +62,30 @@ const MessageIndex = () => {
         Messages von {user ? user.id : 'Laden...'}
       </h2>
       <ul className="divide-y divide-light-color">
-        {conversations.map((conversationGroup) => {
-          const lastMessage = conversationGroup[conversationGroup.length - 1];
-          const otherUser = getOtherUser(lastMessage, user.id);
+        {conversations.map((conversation) => {
+          const otherUser = getOtherUser(conversation, user.id);
           return (
             <li
-              key={lastMessage.id}
+              key={conversation.id}
               className={`flex items-center justify-between px-4 py-2 ${
-                !lastMessage.is_read ? 'light-color' : ''
+                conversation.is_read ? '' : 'light-color'
               }`}
             >
               <Link
                 to={`/conversations/${
-                  lastMessage.sender_id === user.id
-                    ? lastMessage.recipient_id
-                    : lastMessage.sender_id
-                }/${lastMessage.article_id}`}
+                  conversation.sender_id === user.id
+                    ? conversation.recipient_id
+                    : conversation.sender_id
+                }/${conversation.article_id}`}
                 className="flex-grow"
               >
                 <div>
-                  <h3 className="h3-text">{lastMessage.article.title}</h3>
+                  <h3 className="h3-text">{conversation.article.title}</h3>
                   <p className="content-text">{otherUser.name}</p>
-                  <p className="content-text">{lastMessage.body}</p>
+                  <p className="content-text">{conversation.body}</p>
                 </div>
               </Link>
-              <span className="content-text">{new Date(lastMessage.created_at).toLocaleString()}</span>
+              <span className="content-text">{new Date(conversation.created_at).toLocaleString()}</span>
             </li>
           );
         })}

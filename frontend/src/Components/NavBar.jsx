@@ -10,17 +10,18 @@ const Navbar = ({ isAuthenticated }) => {
   useEffect(() => {
     const checkForUnreadMessages = async () => {
       try {
-        const response = await axios.get('/messages/unread');
+        const response = await axios.get('/messages/check-new'); // Update the endpoint
         setHasUnreadMessages(response.data.hasNewMessages);
       } catch (error) {
         console.error('Error checking for unread messages:', error);
       }
     };
-
+  
     if (isAuthenticated) {
       checkForUnreadMessages();
     }
   }, [isAuthenticated]);
+  
 
   const handleNavigation = (path) => {
     if (isAuthenticated) {
@@ -35,7 +36,7 @@ const Navbar = ({ isAuthenticated }) => {
       <a href="/" className="iconHome">Startseite</a>
       <button
         onClick={() => handleNavigation('/messages')}
-        className={`iconMessage ${hasUnreadMessages ? 'text-black' : ''}`}
+        className={hasUnreadMessages ? 'iconNewMessage' : 'iconMessage'}
       >
         Nachrichten
       </button>
