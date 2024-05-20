@@ -46,11 +46,11 @@ const AdminDashboard = () => {
               type="text"
               name="search"
               placeholder="Benutzer suchen..."
-              className="form-control w-full px-5 h-12 text-xl"
+              className="form-control w-full px-5 h-12 content-text light-color"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <button type="submit" className="ml-2 px-5">
+            <button type="submit" className="ml-2 px-5 content-text py-2  br-buttons  light-color">
               Suchen
             </button>
           </form>

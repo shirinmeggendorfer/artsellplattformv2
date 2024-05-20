@@ -21,6 +21,7 @@ import MessageConversation from './pages/messages/MessageConversation';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import EditUser from './pages/admin/EditUser';
 import EditUserArticle from './pages/admin/EditUserArticle'; // Importiere die EditUserArticle-Komponente
+import Logout from './Components/auth/Logout';
 
 function Layout({ children, isAuthenticated }) {
   return (
@@ -108,10 +109,10 @@ function App() {
             <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageIndex />} />
           } />
           <Route path="/messages/create/:recipientId/:articleId" element={
-            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageCreate />} />
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageCreate user={user} />} />
           } />
           <Route path="/conversations/:userId/:articleId" element={
-            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageConversation />} />
+            <PrivateRoute isAuthenticated={isAuthenticated} element={<MessageConversation user={user} />} />
           } />
           <Route path="/new-article" element={
             <PrivateRoute isAuthenticated={isAuthenticated} element={<ArticleCreate />} />
@@ -128,6 +129,7 @@ function App() {
           <Route path="/admin/items/:itemId/edit" element={
             <PrivateRoute isAuthenticated={isAuthenticated} user={user} requiredRole="admin" element={<EditUserArticle />} />
           } />
+          <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} setUser={setUser} />} />
         </Routes>
       </Layout>
     </Router>

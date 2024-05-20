@@ -33,8 +33,8 @@ class Message extends Model
      * @return bool
      */
     public function isUnreadByAuthUser()
-{
-    // Überprüft, ob die Nachricht ungelesen ist und der Empfänger der authentifizierte Benutzer ist
-    return $this->is_read === false && $this->recipient_id === auth()->id();
-}
+    {
+        // Überprüft, ob die Nachricht ungelesen ist und der Empfänger der authentifizierte Benutzer ist
+        return $this->is_read == 0 && $this->recipient_id === auth()->id();
+    }
 }

@@ -60,40 +60,31 @@ class ProfileController extends Controller
         return response()->json(['error' => 'Es wurde kein Bild ausgewählt.'], 400);
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request)
+    public function getUser()
     {
-        $request->user()->fill($request->validated());
+        $user = Auth::user();
+        return response()->json($user);
+    }
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+    public function destroyUser($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'Benutzer nicht gefunden.'], 404);
         }
 
-        $request->user()->save();
+        // Delete user's items
+        $user->items()->delete();
 
-        return response()->json(['status' => 'profile-updated']);
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request)
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
+        // Delete the user
         $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+        // Logout the user
+        Auth::logout();
 
-        return response()->json(['message' => 'Account erfolgreich gelöscht.']);
+        return response()->json(['message' => 'Benutzer erfolgreich gelöscht.']);
     }
+
 }
+

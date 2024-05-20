@@ -28,15 +28,16 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/admin/items/{item}', [AdminController::class, 'updateArticle']);
     Route::delete('/admin/items/{item}', [AdminController::class, 'destroyArticle']);
     Route::get('/admin/search', [AdminController::class, 'searchUser']);
+    Route::get('/messages/check-new', [MessageController::class, 'checkForNewMessages']);
 
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
+    Route::get('/user', [ProfileController::class, 'getUser']);
     Route::get('/profile', [ProfileController::class, 'edit']);
     Route::post('/profile', [ProfileController::class, 'update']);
     Route::post('/profile/picture', [ProfileController::class, 'updatePicture']);
-    Route::delete('/profile', [ProfileController::class, 'destroy']);
+    Route::delete('/users/{id}', [ProfileController::class, 'destroyUser']);
     Route::delete('/profile/item/{item}', [ProfileController::class, 'destroyItem']);
     Route::post('/items', [ArticleController::class, 'store']);
     Route::get('/user/items', [ArticleController::class, 'userItems']);
@@ -66,6 +67,8 @@ Route::get('/homeitems', [HomeController::class, 'index']);
 // Password reset routes
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store']);
 Route::post('/reset-password', [NewPasswordController::class, 'store']);
+Route::put('/password/update', [PasswordController::class, 'update'])->middleware('auth:sanctum');
+
 
 // Email verification routes
 Route::get('/verify-email', [EmailVerificationPromptController::class, '__invoke'])->middleware('auth:sanctum');

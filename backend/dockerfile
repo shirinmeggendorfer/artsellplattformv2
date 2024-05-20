@@ -57,7 +57,7 @@ RUN php artisan vendor:publish --provider="Laravel\\Sanctum\\SanctumServiceProvi
 RUN php artisan storage:link
 
 # Ändere den aktuellen Benutzer zu www-data
-USER www-data
+#USER www-data
 
 # Exponiere den Port, auf dem Laravel läuft
 EXPOSE 8000

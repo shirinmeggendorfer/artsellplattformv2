@@ -3,7 +3,7 @@ import axios from '../../Components/auth/axios';
 import { confirmAlert } from 'react-confirm-alert';
 import { useNavigate, Link } from 'react-router-dom';
 import 'react-confirm-alert/src/react-confirm-alert.css';
-import DeleteUserForm from './delete-user-form';
+//import DeleteUserForm from './delete-user-form';
 import UpdatePasswordForm from './update-password-form';
 import UpdateProfileInformationForm from './update-profile-information-form';
 
@@ -92,7 +92,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
         <div className="mt-4 px-5 flex items-center">
           <img src={`http://localhost:8000/storage/${profileImage}`} alt="Aktuelles Bild" className="br-profile-picture profile-image ml-2" />
           <div className="flex flex-col px-5 ml-2">
-            <span className="content-text py-5">Hallo, {user.name}</span>
+            <span className="content-text py-5">Hallo, {user.name} {user.id}</span>
             <form id="uploadForm" method="POST" encType="multipart/form-data">
               <input type="file" id="profile_image_input" name="profile_image" className="hidden" onChange={handleImageChange} />
               <button type="button" onClick={() => document.getElementById('profile_image_input').click()} className="x-button">
@@ -115,7 +115,7 @@ const EditProfile = ({ isAuthenticated, user, logout }) => {
                 <div className="p-4 mt-2 base-color-light rounded-lg">
                   <UpdateProfileInformationForm user={user} />
                   <UpdatePasswordForm />
-                  <DeleteUserForm />
+        
                 </div>
               )}
             </div>

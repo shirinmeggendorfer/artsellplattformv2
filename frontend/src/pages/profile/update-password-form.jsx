@@ -11,7 +11,7 @@ const UpdatePasswordForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put('/password.update', {
+      await axios.put('/api/password/update', {
         current_password: currentPassword,
         password: newPassword,
         password_confirmation: passwordConfirmation,

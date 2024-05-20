@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: meinprojekt
 -- ------------------------------------------------------
--- Server version	8.3.0
+-- Server version    8.3.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -70,26 +70,42 @@ CREATE TABLE `items` (
 -- Dumping data for table `items`
 --
 
+LOCK TABLES `items` WRITE;
+/*!40000 ALTER TABLE `items` DISABLE KEYS */;
 INSERT INTO `items` VALUES 
-(1, 'Gregr', 'Gergewg', 34.00, 'IMG_0003_1711422082.jpeg', 6, '2024-03-26 08:01:22', '2024-03-26 08:01:22'), 
+(1, 'Gregr', 'Gergewg', 34.00, 'IMG_0007_1711435090.jpeg', 6, '2024-03-26 08:01:22', '2024-03-26 08:01:22'), 
 (2, 'Rr3wtr23', 'T332t23', 34.00, 'IMG_0007_1711435090.jpeg', 20, '2024-03-26 11:38:10', '2024-03-26 11:38:10');
+/*!40000 ALTER TABLE `items` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `articles`
+--
 
-
-
-CREATE TABLE IF NOT EXISTS `articles` (
+DROP TABLE IF EXISTS `articles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `articles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `articles`
+--
 
--- Einfügen von Beispiel-Daten
+LOCK TABLES `articles` WRITE;
+/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`name`, `created_at`, `updated_at`) VALUES
 ('Item 1', NOW(), NOW()),
 ('Item 2', NOW(), NOW());
+/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `messages`
 --
@@ -124,7 +140,11 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (4,20,6,2,'Rt3t34t','2024-03-26 09:59:30','2024-03-26 10:00:40',NULL,1,NULL),(5,6,20,2,'Twet','2024-03-26 09:59:51','2024-03-26 10:00:40','public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg',1,NULL),(6,20,6,1,'Etwetwegw','2024-03-26 09:59:54','2024-03-26 10:00:40',NULL,1,NULL),(7,20,6,1,'Wggwegwgw','2024-03-26 09:59:56','2024-03-26 10:00:40',NULL,1,NULL);
+INSERT INTO `messages` VALUES 
+(4, 20, 6, 2, 'Rt3t34t', '2024-03-26 09:59:30', '2024-03-26 10:00:40', NULL, 1, NULL),
+(5, 6, 20, 2, 'Twet', '2024-03-26 09:59:51', '2024-03-26 10:00:40', 'public/messages/images/wnqpCeuqcZX1T4n5WNt89CJzNXss0LYr7qCi2Atn.jpg', 1, NULL),
+(6, 20, 6, 1, 'Etwetwegw', '2024-03-26 09:59:54', '2024-03-26 10:00:40', NULL, 1, NULL),
+(7, 20, 6, 1, 'Wggwegwgw', '2024-03-26 09:59:56', '2024-03-26 10:00:40', NULL, 1, NULL);
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +169,20 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2024_03_08_221400_create_items_table',1),(6,'2024_03_09_132824_create_messages_table',1),(7,'2024_03_10_215223_add_is_admin_to_users_table',1),(8,'2024_03_11_213207_add_article_id_to_messages_table',1),(9,'2024_03_12_221332_add_image_path_to_messages',1),(10,'2024_03_13_012623_add_is_read_to_messages_table',1),(11,'2024_03_18_105420_add_surname_to_users_table',1),(12,'2024_03_24_014617_add_profile_image_to_users_table',1),(13,'2024_03_25_164915_adapt_admin_attribute_table',1);
+INSERT INTO `migrations` VALUES 
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_reset_tokens_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2024_03_08_221400_create_items_table', 1),
+(6, '2024_03_09_132824_create_messages_table', 1),
+(7, '2024_03_10_215223_add_is_admin_to_users_table', 1),
+(8, '2024_03_11_213207_add_article_id_to_messages_table', 1),
+(9, '2024_03_12_221332_add_image_path_to_messages', 1),
+(10, '2024_03_13_012623_add_is_read_to_messages_table', 1),
+(11, '2024_03_18_105420_add_surname_to_users_table', 1),
+(12, '2024_03_24_014617_add_profile_image_to_users_table', 1),
+(13, '2024_03_25_164915_adapt_admin_attribute_table', 1);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -240,11 +273,14 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (6,'BeispielUser',NULL,'beispieluser@beispiel.de',NULL,NULL,'$2y$12$rv5S1qtjwUVFjc3jrjGhLe0.zBCQthXUPed0Q1ERg8kQSXUJ0yUgS',NULL,'2024-03-26 07:49:27','2024-03-26 07:49:27',0),(7,'Admin',NULL,'admin@admin.com',NULL,NULL,'$2y$12$obhZwkP3LNBeVpSwlECks.sgRBWPTkG7ffdUrJkLlJyyQQZedmZSi',NULL,'2024-03-26 08:04:04','2024-03-26 08:04:04',1),(20,'TestUser',NULL,'testuser@test.com','profilepictures/TestUser-profileimage-20240403122119.jpeg',NULL,'$2y$12$dEAeItOxNXuRxkFGNzDhOOwSXJMvQOQe5kZaEyhmjdQgVn8Uo9PWm',NULL,'2024-03-26 09:58:59','2024-04-03 17:21:19',0);
+INSERT INTO `users` VALUES 
+(6, 'BeispielUser', NULL, 'beispieluser@beispiel.de', NULL, NULL, '$2y$12$rv5S1qtjwUVFjc3jrjGhLe0.zBCQthXUPed0Q1ERg8kQSXUJ0yUgS', NULL, '2024-03-26 07:49:27', '2024-03-26 07:49:27', 0),
+(7, 'Admin', NULL, 'admin@admin.com', NULL, NULL, '$2y$12$obhZwkP3LNBeVpSwlECks.sgRBWPTkG7ffdUrJkLlJyyQQZedmZSi', NULL, '2024-03-26 08:04:04', '2024-03-26 08:04:04', 1),
+(20, 'TestUser', NULL, 'testuser@test.com', 'profilepictures/TestUser-profileimage-20240403122119.jpeg', NULL, '$2y$12$dEAeItOxNXuRxkFGNzDhOOwSXJMvQOQe5kZaEyhmjdQgVn8Uo9PWm', NULL, '2024-03-26 09:58:59', '2024-04-03 17:21:19', 0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../Components/auth/axios';
 import { useParams } from 'react-router-dom';
 
-const MessageConversation = () => {
+const MessageConversation = ({ user }) => {
   const { userId, articleId } = useParams();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -22,16 +22,20 @@ const MessageConversation = () => {
       }
     };
 
+    fetchArticle();
+  }, [articleId]);
+
+  useEffect(() => {
     const fetchMessages = async () => {
       try {
         const response = await axios.get(`/conversations/${userId}/${articleId}`);
+        console.log('Fetched messages:', response.data);
         setMessages(response.data);
       } catch (error) {
         console.error('Fehler beim Laden der Nachrichten:', error);
       }
     };
 
-    fetchArticle();
     fetchMessages();
   }, [userId, articleId]);
 
@@ -52,8 +56,8 @@ const MessageConversation = () => {
     try {
       await axios.post('/messages', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
       setNewMessage('');
       setSelectedImage(null);
@@ -74,7 +78,11 @@ const MessageConversation = () => {
     <div className="base-color-light max-h-full h-screen">
       {article && articleOwner ? (
         <div className="flex items-center p-4 border-b">
-          <img src={`http://localhost:8000/storage/photos/${article.photo}`} alt={article.title} className="w-16 h-16 object-cover rounded-full mr-4" />
+          <img
+            src={`http://localhost:8000/storage/photos/${article.photo}`}
+            alt={article.title}
+            className="w-16 h-16 object-cover rounded-full mr-4"
+          />
           <div>
             <h2 className="text-xl font-bold">{article.title}</h2>
             <p className="text-gray-600">von {articleOwner.name}</p>
@@ -86,10 +94,20 @@ const MessageConversation = () => {
       <div className="px-4 py-5 sm:p-6">
         {messages.map((message) => (
           <div key={message.id} className="mb-2 flex justify-between">
-            <div className={`content-text flex-grow ${message.sender_id === parseInt(userId) ? 'light-color' : 'accent-color'} p-2 br-messages`}>
+            <div
+              className={`content-text flex-grow ${
+                message.sender_id === parseInt(userId)
+                  ? 'light-color'
+                  : 'accent-color'
+              } p-2 br-messages`}
+            >
               <strong>{message.sender ? message.sender.name : 'Unbekannt'}:</strong> {message.body}
               {message.image && (
-                <img src={`http://localhost:8000/storage/${message.image}`} alt="Nachricht Bild" className="mt-2 max-w-xs" />
+                <img
+                  src={`http://localhost:8000/storage/${message.image}`}
+                  alt="Nachricht Bild"
+                  className="mt-2 max-w-xs"
+                />
               )}
             </div>
             <span className="content-text">{new Date(message.created_at).toLocaleTimeString()}</span>
@@ -104,9 +122,17 @@ const MessageConversation = () => {
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Nachricht schreiben..."
         />
-        <input id="fileInput" type="file" onChange={handleImageChange} className="mt-2" />
+        <input
+          id="fileInput"
+          type="file"
+          onChange={handleImageChange}
+          className="mt-2"
+        />
         <div className="flex justify-end mt-2">
-          <button onClick={handleSendMessage} className="px-5 content-text py-2 px-4 br-buttons light-color">
+          <button
+            onClick={handleSendMessage}
+            className="px-5 content-text py-2 px-4 br-buttons light-color"
+          >
             Senden
           </button>
         </div>
