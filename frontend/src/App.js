@@ -66,8 +66,10 @@ function App() {
       setIsAuthenticated(false);
       setUser(null);
       console.error('Login error:', error);
+      throw error; // Fehler zurückgeben, um im Login-Component behandelt zu werden
     }
   };
+
 
   const logout = async () => {
     try {

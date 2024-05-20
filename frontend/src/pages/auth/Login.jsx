@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import '../../index.css';
@@ -6,14 +6,15 @@ import '../../index.css';
 const Login = ({ login }) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const onSubmit = async data => {
     try {
       await login(data);
-      navigate('/'); // Zur Startseite umleiten
+      navigate('/'); // Zur Startseite umleiten bei erfolgreichem Login
     } catch (error) {
       console.error('Login error:', error);
-      // handle login errors
+      setErrorMessage('Login war nicht erfolgreich. Bitte überprüfen Sie Ihre Anmeldedaten.');
     }
   };
 
@@ -23,6 +24,12 @@ const Login = ({ login }) => {
         <div className="text-center mb-10">
           <h1 className="h1-text font-bold">Login</h1>
         </div>
+
+        {errorMessage && (
+          <div className="mb-4 p-4 text-red-700 bg-red-100 rounded">
+            {errorMessage}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div>
@@ -54,7 +61,6 @@ const Login = ({ login }) => {
           </div>
         </form>
 
-        
         <div className="mt-2 text-center">
           <span className="content-text">Not registered yet? </span>
           <Link to="/register" className="text-blue-500 underline">Register here</Link>
