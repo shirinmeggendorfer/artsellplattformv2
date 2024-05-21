@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Item; 
 use Illuminate\Http\Request;
+use App\Models\Message;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
@@ -131,15 +133,19 @@ public function destroy(Item $item)
             Storage::delete('public/photos/' . $item->photo);
         }
 
+        // Alle Nachrichten zum Artikel löschen
+        Message::where('article_id', $item->id)->delete();
+
         $item->delete();
 
-        return response()->json(['message' => 'Artikel erfolgreich gelöscht.']);
+        return response()->json(['message' => 'Artikel und zugehörige Nachrichten erfolgreich gelöscht.']);
     } catch (\Exception $e) {
         // Loggen Sie den Fehler zur weiteren Analyse
         \Log::error('Fehler beim Löschen des Artikels: ', ['error' => $e->getMessage()]);
         return response()->json(['error' => 'Fehler beim Löschen des Artikels: ' . $e->getMessage()], 500);
     }
 }
+
 
 
 
