@@ -40,36 +40,40 @@ function ArticleDisplay({ isAuthenticated }) {
   };
 
   return (
-    <div className="base-color-light fixed top-0 z-50 w-full mb-2 shadow">
-      <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-6">
-        <div className="sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <h3 className="h3-text">{item.title}</h3>
-            {item.user && <p className="mt-1 max-w-2xl content-text">Verkäufer: {item.user.name}</p>}
-          </div>
-          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} />
-          </div>
-          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="h3-text">Beschreibung</dt>
-            <dd className="content-text">{item.description}</dd>
-          </div>
-          <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-            <dt className="content-text">Preis</dt>
-            <dd className="content-text">{item.price} €</dd>
-          </div>
-        </div>
-        <div className="mt-5 flex justify-end px-5">
-          <button
-            onClick={handleContact}
-            className="light-color hover:accent-color content-text-small py-2 px-4 br-buttons"
-          >
-            Anschreiben
-          </button>
-        </div>
-        <div className="mb-20"></div>
+    <div className="min-h-screen flex flex-col">
+      <div className="base-color-light fixed top-0 z-50 w-full mb-2 shadow">
+        <NavBar />
       </div>
-      <NavBar />
+      <div className="flex-grow overflow-auto pt-16 pb-32">
+        <div className="max-w-4xl mx-auto sm:px-6 lg:px-8 py-6">
+          <div className="sm:rounded-lg">
+            <div className="px-4 py-5 sm:px-6">
+              <h3 className="h3-text">{item.title}</h3>
+              {item.user && <p className="mt-1 max-w-2xl content-text">Verkäufer: {item.user.name}</p>}
+            </div>
+            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <img src={`http://localhost:8000/storage/photos/${item.photo}`} alt={item.title} className="sm:col-span-3" />
+            </div>
+            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="h3-text">Beschreibung</dt>
+              <dd className="content-text sm:col-span-2">{item.description}</dd>
+            </div>
+            <div className="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+              <dt className="content-text">Preis</dt>
+              <dd className="content-text sm:col-span-2">{item.price} €</dd>
+            </div>
+            <div className="px-4 py-5 sm:px-6">
+              <button
+                onClick={handleContact}
+                className="light-color hover:accent-color content-text-small py-2 px-4 br-buttons"
+              >
+                Anschreiben
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className='mb-60'></div>
+      </div>
     </div>
   );
 }

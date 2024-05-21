@@ -73,7 +73,7 @@ function StartPage() {
         <div className="pt-16">
           <h2 className="h2-text text-left mt-4 mb-6 px-5">Zuletzt hochgeladen</h2>
           {items.map(item => (
-            <a key={item.id} href={`/items/${item.id}`} className="px-5 w-full block text-black no-underline">
+            <a key={item.id} href={`/items/${item.id}`} className="px-5  w-full block text-black no-underline">
               <img 
                 src={`http://localhost:8000/storage/photos/${item.photo}`} 
                 alt={item.title} 
@@ -85,13 +85,15 @@ function StartPage() {
                   {item.price} €
                 </p>
               </div>
-              <div className="mb-10"></div>
+              <div className="mb-20"></div>
             </a>
-           
+             
           ))}
-          <div className="mb-20"></div>
+   <div className="mb-60">.</div>
         </div>
+    
         <NavBar />
+       
       </div>
     </Layout>
   );

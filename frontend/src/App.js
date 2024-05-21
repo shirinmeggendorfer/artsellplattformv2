@@ -32,6 +32,7 @@ function Layout({ children, isAuthenticated }) {
         </div>
       </header>
       <main>{children}</main>
+      
       <Navbar isAuthenticated={isAuthenticated} />
     </div>
   );
