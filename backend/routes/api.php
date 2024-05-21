@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/profile/picture', [ProfileController::class, 'updatePicture']);
     Route::delete('/users/{id}', [ProfileController::class, 'destroyUser']);
     Route::delete('/profile/item/{item}', [ProfileController::class, 'destroyItem']);
-    Route::post('/items', [ArticleController::class, 'store']);
+    Route::post('/items', [ArticleController::class, 'store'])->name('items.store');
     Route::get('/user/items', [ArticleController::class, 'userItems']);
     Route::put('/items/{item}', [ArticleController::class, 'update']);
     Route::delete('/items/{item}', [ArticleController::class, 'destroy']);

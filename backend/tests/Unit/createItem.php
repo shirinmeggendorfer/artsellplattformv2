@@ -19,22 +19,23 @@ class createItem extends TestCase
         Storage::fake('public');
 
         $user = User::factory()->create([
-            'email' => 'dummy@dummy.de',
+            'email' => 'beispiel@beispiel.de',
             'password' => bcrypt('beispiel1234'),
         ]);
 
-        $this->actingAs($user);
+        $this->actingAs($user, 'sanctum');
 
         $photo = UploadedFile::fake()->image('unittest.png');
 
-        $response = $this->post(route('items.storeItem'), [
+        $response = $this->postJson(route('items.store'), [
             'title' => 'Test Artikel',
             'description' => 'Dies ist ein Testartikel',
             'price' => 10.99,
             'photo' => $photo,
         ]);
 
-        $response->assertRedirect(route('startPage'));
+        $response->assertStatus(201);
+        $response->assertJson(['message' => 'Artikel erfolgreich erstellt.']);
 
         // Überprüfen Sie, ob der Artikel in der Datenbank erstellt wurde
         $this->assertDatabaseHas('items', [
@@ -44,8 +45,6 @@ class createItem extends TestCase
             'user_id' => $user->id,
         ]);
 
-        // Überprüfen Sie, ob das Bild hochgeladen wurde
-       // Storage::disk('public')->assertExists('photos/' . $photo->hashName());
-       // {{ asset('storage/photos/' . $item->photo) }}
+       
     }
 }
